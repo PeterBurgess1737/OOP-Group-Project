@@ -12,7 +12,7 @@ int main()
     // Create the window
     sf::RenderWindow window(
         sf::VideoMode(1280, 720),
-        "OOP Group Project");
+        "Movement Test");
 
     // Circle
     sf::CircleShape shape(100.f); // Radius

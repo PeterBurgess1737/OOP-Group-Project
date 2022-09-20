@@ -37,3 +37,17 @@ link-movement:
 
 movement-run:
 	./"executables/movement-test.exe"
+
+
+# A test for checking for collisions between shapes
+collision: compile-collision link-collision
+
+compile-collision:
+	g++ -Isrc/include -c "tests/collision-test.cpp" -o "object files/collision-test.o"
+
+link-collision:
+	g++ "object files/collision-test.o" -o "executables/collision-test.exe" -Lsrc/lib -lsfml-graphics -lsfml-window -lsfml-system
+
+collision-run:
+	./"executables/collision-test.exe"
+
