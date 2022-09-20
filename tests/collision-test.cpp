@@ -25,7 +25,7 @@ bool collisionRectangleWithRectangle(const RectangleShape &rect1, const Rectangl
     if (rect1_pos.x < rect2_pos.x + rect2_size.x)             // If the left is left of the right
         if (rect1_pos.x + rect1_size.x > rect2_pos.x)         // If the right is right of the left
             if (rect1_pos.y < rect2_pos.y + rect2_size.y)     // If the top is above the bottom
-                if (rect2_pos.y + rect1_size.y > rect2_pos.y) // If the bottom is below the top
+                if (rect1_pos.y + rect1_size.y > rect2_pos.y) // If the bottom is below the top
                     return true;
 
     // If any of the above are false then there is no collision
@@ -49,6 +49,7 @@ bool collisionRectangleWithCircle(const RectangleShape &rect, const CircleShape 
         rect_pos.x <= circle_center.x && circle_center.x <= rect_pos.x + rect_size.x ||
         rect_pos.y <= circle_center.y && circle_center.y <= rect_pos.y + rect_size.y)
     {
+        cout << "Rect" << endl;
         float circle_diameter = circle_radius * 2;
         RectangleShape binding_rectangle(Vector2f(circle_diameter, circle_diameter));
         binding_rectangle.setPosition(circle_pos);
@@ -58,30 +59,34 @@ bool collisionRectangleWithCircle(const RectangleShape &rect, const CircleShape 
 
     // Find the corner the circle is closest to and get x and y displacement
     float x_diff, y_diff, distance;
-    if (circle_pos.x < rect_pos.x) // If to the left
-        if (circle_pos.y < rect_pos.y) // If above
+    bool circle_above = circle_center.y < rect_pos.y;
+    if (circle_center.x < rect_pos.x) // If the circle is to the left of the rectangle
+        if (circle_above)             // If the circle is above the rectangle
         {
-            x_diff = circle_pos.x - rect_pos.x;
-            y_diff = circle_pos.y - rect_pos.y;
+            // Get displacement to the rectangles top left corner
+            x_diff = circle_center.x - rect_pos.x;
+            y_diff = circle_center.y - rect_pos.y;
         }
-        else // If below
+        else // If the circle is below the rectangle
         {
-            x_diff = circle_pos.x - rect_pos.x;
-            y_diff = circle_pos.y - rect_pos.y - rect_size.y;
+            // Get displacement to the rectangles bottom left corner
+            x_diff = circle_center.x - rect_pos.x;
+            y_diff = circle_center.x - rect_pos.y - rect_size.y;
+        }
+    else                  // If the circle is to the right of the rectangle
+        if (circle_above) // If the circle is above the rectangle
+        {
+            // Get the displacement to the rectangles top right corner
+            x_diff = circle_center.x - rect_pos.x - rect_size.x;
+            y_diff = circle_center.y - rect_pos.y;
+        }
+        else // If the circle is below the rectangle
+        {
+            // Get the displacement to the rectangles bottom right corner
+            x_diff = circle_center.x - rect_pos.x - rect_size.x;
+            y_diff = circle_center.y - rect_pos.y - rect_size.y;
         }
 
-    else // If to the right
-        if (circle_pos.y < rect_pos.y) // If above
-        {
-            x_diff = circle_pos.x - rect_pos.x - rect_size.x;
-            y_diff = circle_pos.y - rect_size.y;
-        }
-        else // If below
-        {
-            x_diff = circle_pos.x - rect_pos.x - rect_size.x;
-            y_diff = circle_pos.y - rect_pos.y - rect_size.y;
-        }
-    
     // Find the distance and check against radius
     distance = sqrt(x_diff * x_diff + y_diff * y_diff);
     if (distance < circle_radius)
@@ -171,16 +176,9 @@ int main()
         else if (position.y > 720 - rectangle1_size.y)
             rectangle1.setPosition(rectangle1.getPosition().x, 720 - rectangle1_size.y);
 
-        // Collision detection
-
-        // With rectangle
-        if (collisionRectangleWithRectangle(rectangle1, rectangle2))
-            rectangle1.setFillColor(Color::Red);
-        else
-            rectangle1.setFillColor(Color::Blue);
-
-        // With circle
-        if (collisionRectangleWithCircle(rectangle1, circle))
+        // Collision detection with rectangle or circle
+        if (collisionRectangleWithRectangle(rectangle1, rectangle2) ||
+            collisionRectangleWithCircle(rectangle1, circle))
             rectangle1.setFillColor(Color::Red);
         else
             rectangle1.setFillColor(Color::Blue);
