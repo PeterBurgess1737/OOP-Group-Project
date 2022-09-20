@@ -49,7 +49,6 @@ bool collisionRectangleWithCircle(const RectangleShape &rect, const CircleShape 
         rect_pos.x <= circle_center.x && circle_center.x <= rect_pos.x + rect_size.x ||
         rect_pos.y <= circle_center.y && circle_center.y <= rect_pos.y + rect_size.y)
     {
-        cout << "Rect" << endl;
         float circle_diameter = circle_radius * 2;
         RectangleShape binding_rectangle(Vector2f(circle_diameter, circle_diameter));
         binding_rectangle.setPosition(circle_pos);
@@ -106,7 +105,7 @@ int main()
 
     // Create the window
     sf::RenderWindow window(sf::VideoMode(1280, 720),
-                            "OOP Group Project");
+                            "Collision Test");
 
     // Circle
     CircleShape circle(100.f);         // Radius
