@@ -10,10 +10,11 @@
 # 	Use 'make mac' to compile the project for mac
 # 	Use 'make mac-run' to run the compiled project for mac
 #
-# Here are the current test commands
+# Here are the current test commands (see definitions for more details)
 # 	'make sfml' to check if SFML works
 # 	'make Tmovement' to run a basic test for movement
 # 	'make Tcollision' to run a basic test for collision
+# 	'make Tframerate' to run a basic test for setting the framerate of a window
 #====================================================================================================
 
 # The main make command for the project, use 'make' to compile and 'make run' to run the executable
@@ -35,7 +36,7 @@ mac-run:
 	./"executables/main-mac"
 
 
-# Simple main file for testing if sfml works, this is for windows computers
+# Simple main file for testing if sfml works
 sfml: compile-sfml link-sfml
 
 compile-sfml:
@@ -55,6 +56,7 @@ sfml-run-mac:
 
 
 # A test for moving an object around the screen
+# Use the arrow keys for movement
 Tmovement: compile-Tmovement link-Tmovement
 
 compile-Tmovement:
@@ -74,6 +76,7 @@ Tmovement-run-mac:
 
 
 # A test for checking for collisions between shapes
+# Use the arrow keys for movement
 Tcollision: compile-Tcollision link-Tcollision
 
 compile-Tcollision:
@@ -90,3 +93,24 @@ Tcollision-mac:
 
 Tcollision-run-mac:
 	./"executables/Tcollision-test-mac"
+
+
+# A test for setting the frame rate of a window to better control time
+# Use the arrow keys for movement
+# Use 1-9 for setting different framerates, goes from 10 to 90
+Tframerate: compile-Tframerate link-Tframerate
+
+compile-Tframerate:
+	g++ -Isrc/include -c "tests/Tframerate-test.cpp" -o "object files/Tframerate-test.o"
+
+link-Tframerate:
+	g++ "object files/Tframerate-test.o" -o "executables/Tframerate-test.exe" -Lsrc/lib -lsfml-graphics -lsfml-window -lsfml-system
+
+Tframerate-run:
+	./"executables/Tframerate-test.exe"
+
+Tframerate-mac:
+	g++ "tests/Tframerate-test.cpp" -o "executables/Tframerate-test-mac" -lsfml-graphics -lsfml-window -lsfml-system
+
+Tframerate-run-mac:
+	./"executables/Tframerate-test-mac"
