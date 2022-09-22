@@ -86,7 +86,7 @@ Tcollision-run:
 	./"executables/Tcollision-test.exe"
 
 Tcollision-mac:
-	g++ "tests/Tcollision-mac-test.cpp" -o "executables/Tcollision-test-mac" -lsfml-graphics -lsfml-window -lsfml-system
+	g++ "tests/Tcollision-test.cpp" -o "executables/Tcollision-test-mac" -lsfml-graphics -lsfml-window -lsfml-system
 
 Tcollision-run-mac:
 	./"executables/Tcollision-test-mac"
