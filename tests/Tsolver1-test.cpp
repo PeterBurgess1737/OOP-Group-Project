@@ -88,14 +88,14 @@ Moves the rectangle and solves any collisions with the rectangles in the given v
             // If there is a collision
             if (collisionRectangleWithRectangle(rect, other_rect))
             {
-                if (yMovement > 0) // If moving right
+                if (yMovement > 0) // If moving down
                 {
-                    // Set the right of the rectangle to the left of the other rectangle
+                    // Set the bottom of the rectangle to the bottom of the top rectangle
                     rect.setPosition(x, other_rect.getPosition().y - size.y);
                 }
-                else // If moving left
+                else // If moving up
                 {
-                    // Set the left of the rectangle to the right of the other rectangle
+                    // Set the top of the rectangle to the bottom of the other rectangle
                     rect.setPosition(x, other_rect.getPosition().y + other_rect.getSize().y);
                 }
             }
