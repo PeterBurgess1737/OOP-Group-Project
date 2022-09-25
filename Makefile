@@ -134,3 +134,22 @@ Tsolver1-mac:
 
 Tsolver1-run-mac:
 	./"executables/Tsolver1-test-mac"
+
+
+# A test for solving collisions between rectangles
+Tsolver2: compile-Tsolver2 link-Tsolver2
+
+compile-Tsolver2:
+	g++ -Isrc/include -c "tests/Tsolver2-test.cpp" -o "object files/Tsolver2-test.o"
+	
+link-Tsolver2:
+	g++ "object files/Tsolver2-test.o" -o "executables/Tsolver2-test.exe" -Lsrc/lib -lsfml-graphics -lsfml-window -lsfml-system
+
+Tsolver2-run:
+	./"executables/Tsolver2-test.exe"
+
+Tsolver2-mac:
+	g++ "tests/Tsolver2-test.cpp" -o "executables/Tsolver2-test-mac" -lsfml-graphics -lsfml-window -lsfml-system
+
+Tsolver2-run-mac:
+	./"executables/Tsolver2-test-mac"
