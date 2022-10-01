@@ -15,7 +15,7 @@ using sf::Vector2f;
 #include <SFML/Window.hpp>
 using sf::Keyboard;
 
-bool collisionRectangleWithRectangle(const RectangleShape &rect1, const RectangleShape &rect2)
+bool collisionBetween(const RectangleShape &rect1, const RectangleShape &rect2)
 {
     Vector2f rect1_pos = rect1.getPosition();
     Vector2f rect1_size = rect1.getSize();
@@ -32,7 +32,7 @@ bool collisionRectangleWithRectangle(const RectangleShape &rect1, const Rectangl
     return false;
 }
 
-bool collisionRectangleWithCircle(const RectangleShape &rect, const CircleShape &circle)
+bool collisionBetween(const RectangleShape &rect, const CircleShape &circle)
 {
     Vector2f rect_pos = rect.getPosition();
     Vector2f rect_size = rect.getSize();
@@ -53,7 +53,7 @@ bool collisionRectangleWithCircle(const RectangleShape &rect, const CircleShape 
         RectangleShape binding_rectangle(Vector2f(circle_diameter, circle_diameter));
         binding_rectangle.setPosition(circle_pos);
 
-        return collisionRectangleWithRectangle(rect, binding_rectangle);
+        return collisionBetween(rect, binding_rectangle);
     }
 
     // Find the corner the circle is closest to and get x and y displacement
@@ -95,7 +95,7 @@ bool collisionRectangleWithCircle(const RectangleShape &rect, const CircleShape 
 }
 bool rectangleCollisionWithCircle(const CircleShape &circle, const RectangleShape &rect)
 {
-    return collisionRectangleWithCircle(rect, circle);
+    return collisionBetween(rect, circle);
 }
 
 int main()
@@ -176,8 +176,8 @@ int main()
             rectangle1.setPosition(rectangle1.getPosition().x, 720 - rectangle1_size.y);
 
         // Collision detection with rectangle or circle
-        if (collisionRectangleWithRectangle(rectangle1, rectangle2) ||
-            collisionRectangleWithCircle(rectangle1, circle))
+        if (collisionBetween(rectangle1, rectangle2) ||
+            collisionBetween(rectangle1, circle))
             rectangle1.setFillColor(Color::Red);
         else
             rectangle1.setFillColor(Color::Blue);

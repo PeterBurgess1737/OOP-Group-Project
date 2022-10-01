@@ -18,7 +18,7 @@ using sf::Vector2f;
 #include <SFML/Window.hpp>
 using sf::Keyboard;
 
-bool collisionRectangleWithRectangle(const RectangleShape &rect1, const RectangleShape &rect2)
+bool collisionBetween(const RectangleShape &rect1, const RectangleShape &rect2)
 {
     Vector2f rect1_pos = rect1.getPosition();
     Vector2f rect1_size = rect1.getSize();
@@ -58,7 +58,7 @@ Moves the rectangle and solves any collisions with the rectangles in the given v
         for (RectangleShape other_rect : other_rects)
         {
             // If there is a collision
-            if (collisionRectangleWithRectangle(rect, other_rect))
+            if (collisionBetween(rect, other_rect))
             {
                 if (xMovement > 0) // If moving right
                 {
@@ -86,7 +86,7 @@ Moves the rectangle and solves any collisions with the rectangles in the given v
         for (RectangleShape other_rect : other_rects)
         {
             // If there is a collision
-            if (collisionRectangleWithRectangle(rect, other_rect))
+            if (collisionBetween(rect, other_rect))
             {
                 if (yMovement > 0) // If moving down
                 {

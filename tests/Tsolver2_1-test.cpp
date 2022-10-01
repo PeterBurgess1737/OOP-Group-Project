@@ -11,6 +11,7 @@ using std::vector;
 using sf::CircleShape;
 using sf::Color;
 using sf::RectangleShape;
+using sf::Shape;
 
 #include <SFML/System.hpp>
 using sf::Vector2f;
@@ -21,7 +22,7 @@ using sf::Keyboard;
 /*
 Detects a collision between two rectangles
 */
-bool collisionRectangleWithRectangle(const RectangleShape &rect1, const RectangleShape &rect2)
+bool collisionBetween(const RectangleShape &rect1, const RectangleShape &rect2)
 {
     Vector2f rect1_pos = rect1.getPosition();
     Vector2f rect1_size = rect1.getSize();
@@ -39,8 +40,77 @@ bool collisionRectangleWithRectangle(const RectangleShape &rect1, const Rectangl
 }
 
 /*
-Solves a collision between two shapes along the x-axis.
-Assumes a collision has already beed detected between the shapes
+Detects a collision bewteen a rectangle and a circle
+*/
+bool collisionBetween(const RectangleShape &rect, const CircleShape &circle)
+{
+    Vector2f rect_pos = rect.getPosition();
+    Vector2f rect_size = rect.getSize();
+    Vector2f circle_pos = circle.getPosition();
+    Vector2f circle_center = circle.getPosition();
+
+    float circle_radius = circle.getRadius();
+    circle_center.x += circle_radius;
+    circle_center.y += circle_radius;
+
+    // If the center of the circle is within the bounds of the sides of the rectangle
+    // The consider the circle a rectangle
+    if (
+        rect_pos.x <= circle_center.x && circle_center.x <= rect_pos.x + rect_size.x ||
+        rect_pos.y <= circle_center.y && circle_center.y <= rect_pos.y + rect_size.y)
+    {
+        float circle_diameter = circle_radius * 2;
+        RectangleShape binding_rectangle(Vector2f(circle_diameter, circle_diameter));
+        binding_rectangle.setPosition(circle_pos);
+
+        return collisionBetween(rect, binding_rectangle);
+    }
+
+    // Find the corner the circle is closest to and get x and y displacement
+    float x_diff, y_diff, distance;
+    bool circle_above = circle_center.y < rect_pos.y;
+    if (circle_center.x < rect_pos.x) // If the circle is to the left of the rectangle
+        if (circle_above)             // If the circle is above the rectangle
+        {
+            // Get displacement to the rectangles top left corner
+            x_diff = circle_center.x - rect_pos.x;
+            y_diff = circle_center.y - rect_pos.y;
+        }
+        else // If the circle is below the rectangle
+        {
+            // Get displacement to the rectangles bottom left corner
+            x_diff = circle_center.x - rect_pos.x;
+            y_diff = circle_center.x - rect_pos.y - rect_size.y;
+        }
+    else                  // If the circle is to the right of the rectangle
+        if (circle_above) // If the circle is above the rectangle
+        {
+            // Get the displacement to the rectangles top right corner
+            x_diff = circle_center.x - rect_pos.x - rect_size.x;
+            y_diff = circle_center.y - rect_pos.y;
+        }
+        else // If the circle is below the rectangle
+        {
+            // Get the displacement to the rectangles bottom right corner
+            x_diff = circle_center.x - rect_pos.x - rect_size.x;
+            y_diff = circle_center.y - rect_pos.y - rect_size.y;
+        }
+
+    // Find the distance and check against radius
+    distance = sqrt(x_diff * x_diff + y_diff * y_diff);
+    if (distance < circle_radius)
+        return true;
+
+    return false;
+}
+bool collisionBetween(const CircleShape &circle, const RectangleShape &rect)
+{
+    return collisionBetween(rect, circle);
+}
+
+/*
+Solves a collision between two rectangles along the x-axis.
+Assumes a collision has already been detected between the shapes
 */
 void solveCollisionX(RectangleShape &rect, float xMovement, const RectangleShape &other_rect)
 {
@@ -60,8 +130,15 @@ void solveCollisionX(RectangleShape &rect, float xMovement, const RectangleShape
 }
 
 /*
-Solves a collision between two shapes along the y-axis.
-Assumes a collision has already beed detected between the shapes
+Solves a collision between a rectangle and a circle
+*/
+void solveCollisionX(RectangleShape &rect, float xMovement, const CircleShape &other_circle)
+{
+}
+
+/*
+Solves a collision between two rectangles along the y-axis.
+Assumes a collision has already been detected between the shapes
 */
 void solveCollisionY(RectangleShape &rect, float yMovement, const RectangleShape &other_rect)
 {
@@ -83,7 +160,7 @@ void solveCollisionY(RectangleShape &rect, float yMovement, const RectangleShape
 /*
 Moves a rectangle along the x-axis only
 */
-void moveRectangleX(RectangleShape &rect, float xMovement, vector<RectangleShape> other_rects)
+void moveRectangleX(RectangleShape &rect, float xMovement, vector<Shape *> shapes)
 {
     // If there is x-axis movement
     if (xMovement)
@@ -92,12 +169,12 @@ void moveRectangleX(RectangleShape &rect, float xMovement, vector<RectangleShape
         rect.move(xMovement, 0);
 
         // For every other rectangle
-        for (RectangleShape other_rect : other_rects)
+        for (Shape *shape : shapes)
         {
             // If there is a collision
-            if (collisionRectangleWithRectangle(rect, other_rect))
+            if (collisionBetween(rect, *shape))
             {
-                solveCollisionX(rect, xMovement, other_rect);
+                solveCollisionX(rect, xMovement, *shape);
             }
         }
     }
@@ -106,7 +183,7 @@ void moveRectangleX(RectangleShape &rect, float xMovement, vector<RectangleShape
 /*
 Moves a rectangle along the y-axis only
 */
-void moveRectangleY(RectangleShape &rect, float yMovement, vector<RectangleShape> other_rects)
+void moveRectangleY(RectangleShape &rect, float yMovement, vector<Shape *> shapes)
 {
     // If there is y-axis movement
     if (yMovement)
@@ -118,12 +195,12 @@ void moveRectangleY(RectangleShape &rect, float yMovement, vector<RectangleShape
         rect.move(0, yMovement);
 
         // For every other rectangle
-        for (RectangleShape other_rect : other_rects)
+        for (Shape *shape : shapes)
         {
             // If there is a collision
-            if (collisionRectangleWithRectangle(rect, other_rect))
+            if (collisionBetween(rect, *shape))
             {
-                solveCollisionY(rect, yMovement, other_rect);
+                solveCollisionY(rect, yMovement, *shape);
             }
         }
     }
@@ -132,18 +209,18 @@ void moveRectangleY(RectangleShape &rect, float yMovement, vector<RectangleShape
 /*
 Moves a rectangle and solves any detected collisions
 */
-void moveRectangle(RectangleShape &rect, float xMovement, float yMovement, vector<RectangleShape> other_rects)
+void moveRectangle(RectangleShape &rect, float xMovement, float yMovement, vector<Shape *> shapes)
 {
-    moveRectangleX(rect, xMovement, other_rects);
-    moveRectangleY(rect, yMovement, other_rects);
+    moveRectangleX(rect, xMovement, shapes);
+    moveRectangleY(rect, yMovement, shapes);
 }
 
 /*
 Moves a rectangle and solves any detected collisions
 */
-void moveRectangle(RectangleShape &rect, Vector2f movement, vector<RectangleShape> other_rects)
+void moveRectangle(RectangleShape &rect, Vector2f movement, vector<Shape *> shapes)
 {
-    moveRectangle(rect, movement.x, movement.y, other_rects);
+    moveRectangle(rect, movement.x, movement.y, shapes);
 }
 
 int main()
@@ -167,16 +244,19 @@ int main()
     float x_movement, y_movement; // For moving Rectangle 1
     float move_speed = 5.f;       // Pixels moved per frame
 
-    // Other rectangles
-    vector<RectangleShape> other_rectangles;
+    // Other shapes
+    vector<Shape *> shapes;
     RectangleShape rect1(Vector2f(1000.f, 20.f));
     rect1.setPosition(150.f, 150.f);
     rect1.setFillColor(Color(255, 127, 127));
-    other_rectangles.push_back(rect1);
+    shapes.push_back(&rect1);
     RectangleShape rect2(Vector2f(50.f, 400.f));
     rect2.setPosition(700.f, 200.f);
     rect2.setFillColor(Color(255, 127, 127));
-    other_rectangles.push_back(rect2);
+    shapes.push_back(&rect2);
+    CircleShape circle1(100.f);
+    circle1.setPosition(100.f, 600.f);
+    circle1.setFillColor(Color(255, 127, 127));
 
     // Where the event being handled is stored
     sf::Event event;
@@ -211,7 +291,7 @@ int main()
         if (Keyboard::isKeyPressed(Keyboard::Down))
             y_movement += move_speed;
 
-        moveRectangle(rectangle, x_movement, y_movement, other_rectangles);
+        moveRectangle(rectangle, x_movement, y_movement, shapes);
 
         // Clamping to the screen
 
@@ -231,8 +311,8 @@ int main()
         // Drawing stuff
         window.clear();
         window.draw(rectangle);
-        for (RectangleShape other_rectangle : other_rectangles)
-            window.draw(other_rectangle);
+        for (Shape *shape : shapes)
+            window.draw(*shape);
 
         // WOOO
         window.display();
