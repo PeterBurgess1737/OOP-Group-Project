@@ -3,6 +3,14 @@ using std::cout;
 using std::endl;
 
 #include <SFML/Graphics.hpp>
+using sf::RenderWindow;
+using sf::CircleShape;
+using sf::RectangleShape;
+
+#include <SFML/System.hpp>
+using sf::Vector2f;
+
+#include "classes.h"
 
 int main()
 {
@@ -10,16 +18,20 @@ int main()
          << endl;
 
     // Create the window
-    sf::RenderWindow window(sf::VideoMode(1280, 720),
+    RenderWindow window(sf::VideoMode(1280, 720),
                             "OOP Group Project");
 
-    // Circle
-    sf::CircleShape shape(100.f);         // Radius
-    shape.setFillColor(sf::Color::Green); // Color
-    shape.setPosition(100.f, 100.f);      // Position
+    // Create the game manager
+    GameManager manager(window);
+
+    // Create an enemy
+    BasicEnemy someEnemy(Vector2f(10.f, 10.f));
+
+    // Add the enemy
+    manager.addEnemy(&someEnemy);
 
     // Where the event being handled is stored
-    sf::Event event;
+    sf::Event event{};
 
     while (window.isOpen())
     {
@@ -36,14 +48,16 @@ int main()
                 if (event.key.code == sf::Keyboard::Escape)
                     window.close();
                 break;
+            default:
+                break;
             }
         }
 
         // Drawing stuff
         window.clear();
-        window.draw(shape);
+        manager.drawEnemies();
 
-        // WOOO
+        // WOO
         window.display();
     }
 
