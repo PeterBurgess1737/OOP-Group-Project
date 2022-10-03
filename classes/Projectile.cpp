@@ -20,7 +20,7 @@ bool Projectile::damageEntity(Entity *entity)
     return entity->takeDamage(damage);
 }
 
-void Projectile::update(vector<Projectile> projectiles, vector<Entity *> enemies, Entity *player)
+void Projectile::update(GameManager *manager)
 {
     lifespan -= 1;
 }
@@ -35,5 +35,3 @@ Projectile::Projectile(Vector2f position, Vector2f velocity, float size, int lif
 
     self->lifespan = lifespan;
 }
-
-

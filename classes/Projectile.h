@@ -10,8 +10,10 @@ using sf::Vector2f;
 #include <SFML/Graphics.hpp>
 using sf::CircleShape;
 
-#include "Entity.h"
+#include "GameManager.h"
 
+class GameManager;
+class Entity;
 
 class Projectile{
 protected:
@@ -30,7 +32,7 @@ public:
     bool damageEntity(Entity *entity);
 
     // Can be redefined by child class for different movement patterns
-    void update(vector<Projectile> projectiles, vector<Entity *> enemies, Entity *player);
+    void update(GameManager *manager);
 };
 
 

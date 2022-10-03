@@ -12,6 +12,8 @@ using sf::RectangleShape;
 
 #include "GameManager.h"
 
+class GameManager;
+
 
 class Entity{
 private:
@@ -32,7 +34,7 @@ protected:
 public:
     sf::RectangleShape body;
 
-    // Return true if the damage taken results in death
+    // Returns true if the damage taken results in death
     bool takeDamage(unsigned int damage);
 
     // Moves the entity's location by the current velocity
@@ -42,11 +44,14 @@ public:
     void changeVelocity(Vector2f adjustment);
     void changeVelocity(float xAdjustment, float yAdjustment);
 
+    // Gets the velocity of the entity
     Vector2f getVelocity();
 
+    // Gets the origin of the entity
     Vector2f getOrigin();
 
-    virtual void update(GameManager manager) = 0;
+    // Updates the velocity of the entity
+    virtual void update(GameManager *manager) = 0;
 };
 
 #endif //OOP_GROUP_PROJECT_ENTITY_H

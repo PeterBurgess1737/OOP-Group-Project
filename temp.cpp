@@ -10,9 +10,7 @@ using sf::RectangleShape;
 #include <SFML/System.hpp>
 using sf::Vector2f;
 
-#include "classes/BasicEnemy.h"
-#include "classes/Player.h"
-#include "classes/GameManager.h"
+#include "classes.h"
 
 int main()
 {
@@ -21,20 +19,16 @@ int main()
 
     // Create the window
     RenderWindow window(sf::VideoMode(1280, 720),
-                            "OOP Group Project");
-
+                        "OOP Group Project");
 
     // Create the game manager
     GameManager manager(window);
 
     // Create an enemy
     BasicEnemy someEnemy(Vector2f(10.f, 10.f));
+
     // Add the enemy
     manager.addEnemy(&someEnemy);
-
-    // Create a player
-    Player the_player(500, 500, 40, 40, 5);
-
 
     // Where the event being handled is stored
     sf::Event event{};
@@ -46,16 +40,16 @@ int main()
         {
             switch (event.type)
             {
-            case sf::Event::Closed: // Window closed
-                window.close();
-                break;
-
-            case sf::Event::KeyPressed: // Escape key pressed
-                if (event.key.code == sf::Keyboard::Escape)
+                case sf::Event::Closed: // Window closed
                     window.close();
-                break;
-            default:
-                break;
+                    break;
+
+                case sf::Event::KeyPressed: // Escape key pressed
+                    if (event.key.code == sf::Keyboard::Escape)
+                        window.close();
+                    break;
+                default:
+                    break;
             }
         }
 

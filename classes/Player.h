@@ -15,11 +15,11 @@ private:
     int bulletType;
 
 public:
-    // Initialise the player
+    // Initialises the player
     Player(float x, float y, float width, float height, int speed);
     Player(Vector2f position, Vector2f size);
 
-    void update(GameManager manager);
+    void update(GameManager *manager);
 
 };
 

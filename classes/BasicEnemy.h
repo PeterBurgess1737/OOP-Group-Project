@@ -10,7 +10,7 @@ public:
     explicit BasicEnemy(Vector2f position);
 
     // Called before the move function.
-    void update(GameManager manager);
+    void update(GameManager *manager);
 };
 
 

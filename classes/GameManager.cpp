@@ -1,4 +1,5 @@
 #include "GameManager.h"
+#include "Projectile.h"
 
 #include <SFML/Graphics.hpp>
 using sf::RenderWindow;
@@ -14,27 +15,25 @@ GameManager::GameManager(RenderWindow &window)
 /*
  * Updates and moves all projectiles
  */
+/*
 void GameManager::updateProjectiles()
 {
-    /*
      * Updates the projectiles
      * Then moves them
      * Then checks
-     */
     for (Projectile projectile : projectiles)
     {
         projectile.update(projectiles, enemies, player);
         projectile.move();
     }
 }
+*/
+
 
 /*
  * Draws all projectiles
  */
-void GameManager::drawProjectiles()
-{
-
-}
+// void GameManager::drawProjectiles() {}
 
 /*
  * Adds the enemy to the list of managed enemies

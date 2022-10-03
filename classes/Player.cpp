@@ -6,21 +6,16 @@ using sf::RectangleShape;
 #include <SFML/System.hpp>
 using sf::Vector2f;
 
-#include "Entity.h"
 #include "GameManager.h"
 
-// Implementation of moving the player
-void Player::move()
+
+// Implementation of updating the player.
+void Player::update(GameManager *manager)
 {
 
 }
 
-// Implementation of updating the player
-void Player::update(GameManager manager)
-{
-
-}
-
+// Implementation of setting the position of the player, and its speed.
 Player::Player(float x, float y, float width, float height, int speed)
 {
     RectangleShape body(Vector2f(width, height));
@@ -30,5 +25,4 @@ Player::Player(float x, float y, float width, float height, int speed)
 
 Player::Player(Vector2f position, Vector2f size)
 {
-
 }

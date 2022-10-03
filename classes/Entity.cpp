@@ -43,17 +43,19 @@ void Entity::changeVelocity(float xAdjustment, float yAdjustment)
     }
 }
 
-// Implementation of changing the velocity
+// Implementation of changing the velocity of the entity
 void Entity::changeVelocity(Vector2f adjustment)
 {
     Entity::changeVelocity(adjustment.x, adjustment.y);
 }
 
+// Implementation of getting the velocity of the entity
 Vector2f Entity::getVelocity()
 {
     return velocity;
 }
 
+// Implementation of getting the centre of the entity.
 Vector2f Entity::getOrigin()
 {
     return body.getOrigin();

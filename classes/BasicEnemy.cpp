@@ -8,7 +8,6 @@ using sf::Vector2f;
 #include <SFML/Graphics.hpp>
 using sf::RectangleShape;
 
-
 BasicEnemy::BasicEnemy(Vector2f position)
 {
     // Set up the rectangle
@@ -18,7 +17,7 @@ BasicEnemy::BasicEnemy(Vector2f position)
     // Load the sprite
     body.setFillColor(sf::Color::Red);
 
-    // Default
+    // Default values
     health = 5;
     max_speed = 4.f;
     move_speed = 0.5f;
@@ -26,7 +25,7 @@ BasicEnemy::BasicEnemy(Vector2f position)
 
 }
 
-void BasicEnemy::update(GameManager manager)
+void BasicEnemy::update(GameManager *manager)
 {
     /*
      * Get the vector from the enemy to the player
@@ -36,7 +35,7 @@ void BasicEnemy::update(GameManager manager)
      * Change the velocity by the vector, change velocity
      */
 
-    Vector2f PlayerPosition = manager.player.getOrigin();
+    Vector2f PlayerPosition = manager->player->getOrigin();
     Vector2f BasicEnemyPosition = getOrigin();
 
     Vector2f vectorPlayerToEnemy = PlayerPosition - BasicEnemyPosition;
@@ -50,5 +49,4 @@ void BasicEnemy::update(GameManager manager)
 
     // change the velocity by the vector
     changeVelocity(normalisedPlayerToEnemy);
-
 }
