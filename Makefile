@@ -15,6 +15,7 @@
 # 	'make Tmovement' to run a basic test for movement
 # 	'make Tcollision' to run a basic test for collision
 # 	'make Tframerate' to run a basic test for setting the framerate of a window
+# 	'make Tsolver1' to run a basic test for solving collisions between rectangles
 #====================================================================================================
 
 # The main make command for the project, use 'make' to compile and 'make run' to run the executable
@@ -114,3 +115,41 @@ Tframerate-mac:
 
 Tframerate-run-mac:
 	./"executables/Tframerate-test-mac"
+
+
+# A test for solving collisions between rectangles
+Tsolver1: compile-Tsolver1 link-Tsolver1
+
+compile-Tsolver1:
+	g++ -Isrc/include -c "tests/Tsolver1-test.cpp" -o "object files/Tsolver1-test.o"
+	
+link-Tsolver1:
+	g++ "object files/Tsolver1-test.o" -o "executables/Tsolver1-test.exe" -Lsrc/lib -lsfml-graphics -lsfml-window -lsfml-system
+
+Tsolver1-run:
+	./"executables/Tsolver1-test.exe"
+
+Tsolver1-mac:
+	g++ "tests/Tsolver1-test.cpp" -o "executables/Tsolver1-test-mac" -lsfml-graphics -lsfml-window -lsfml-system
+
+Tsolver1-run-mac:
+	./"executables/Tsolver1-test-mac"
+
+
+# A test for solving collisions between rectangles
+Tsolver2: compile-Tsolver2 link-Tsolver2
+
+compile-Tsolver2:
+	g++ -Isrc/include -c "tests/Tsolver2-test.cpp" -o "object files/Tsolver2-test.o"
+	
+link-Tsolver2:
+	g++ "object files/Tsolver2-test.o" -o "executables/Tsolver2-test.exe" -Lsrc/lib -lsfml-graphics -lsfml-window -lsfml-system
+
+Tsolver2-run:
+	./"executables/Tsolver2-test.exe"
+
+Tsolver2-mac:
+	g++ "tests/Tsolver2-test.cpp" -o "executables/Tsolver2-test-mac" -lsfml-graphics -lsfml-window -lsfml-system
+
+Tsolver2-run-mac:
+	./"executables/Tsolver2-test-mac"
