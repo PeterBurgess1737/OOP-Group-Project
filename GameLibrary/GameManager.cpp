@@ -61,7 +61,7 @@ void GameManager::updateEnemies()
 {
     for (Entity *enemy : enemies)
     {
-        enemy->update();
+        enemy->update(this);
         enemy->move();
     }
 }

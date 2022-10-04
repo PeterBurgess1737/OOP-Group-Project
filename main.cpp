@@ -2,6 +2,8 @@
 using std::cout;
 using std::endl;
 
+#include <math.h>
+
 #include <SFML/Graphics.hpp>
 using sf::RenderWindow;
 using sf::CircleShape;
@@ -16,12 +18,16 @@ using sf::Vector2f;
 
 class TempEnemy: public Entity
 {
-    void update();
+    void update(GameManager *manager);
 };
 
-void TempEnemy::update()
+void TempEnemy::update(GameManager *manager)
 {
-    velocity.y -= 0.01f;
+    Vector2f vec = manager->player->getCenter() - getCenter();
+    const float vec_mag = sqrt(vec.x * vec.x + vec.y * vec.y);
+    vec /= vec_mag;
+    vec *= move_speed;
+    changeVelocity(vec);
 }
 
 
@@ -43,14 +49,14 @@ int main()
     Entity player;
     player.body.setFillColor(Color::Cyan);
     player.body.setSize(Vector2f(25.f, 25.f));
-    player.body.setPosition(50.f, 50.f);
+    player.body.setPosition(640.f, 360.f);
 
     // Create some enemies to play with the player
     TempEnemy enemy1;
     enemy1.body.setFillColor(Color::Magenta);
     enemy1.body.setSize(Vector2f(25.f, 25.f));
     enemy1.body.setPosition(500.f, 500.f);
-    enemy1.velocity.x = 1.f;
+    enemy1.changeVelocity(1.f, 0.f);
 
     Entity enemy2;
     enemy2.body.setFillColor(Color::Magenta);
@@ -64,11 +70,11 @@ int main()
     manager.addEnemy(&enemy2);
 
     // LOADS OF ENEMIES
-    Entity *temp_entity_pointer;
+    TempEnemy *temp_entity_pointer;
     for (int i = 0; i < 50; i++)
     {
         // Create the entity
-        temp_entity_pointer = new Entity;
+        temp_entity_pointer = new TempEnemy;
 
         // Make em special
         temp_entity_pointer->body.setFillColor(Color::Green);

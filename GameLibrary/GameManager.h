@@ -8,6 +8,7 @@ using std::vector;
 using sf::RenderWindow;
 
 #include "Entity.h"
+class Entity;
 
 class GameManager
 {

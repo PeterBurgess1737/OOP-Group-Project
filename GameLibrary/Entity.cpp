@@ -5,6 +5,8 @@ using sf::Vector2f;
 
 #include <math.h>
 
+#include "GameManager.h"
+
 /*
  * Entities default constructor
  * Shoudnt be used in the actual game as this is just for testing purposes
@@ -12,9 +14,9 @@ using sf::Vector2f;
 Entity::Entity()
 {
     // Give everything some value
-    health = 0;
-    max_speed = 0;
-    move_speed = 0;
+    health = 1;
+    max_speed = 2.5f;
+    move_speed = 0.1f;
 }
 
 /*
@@ -80,9 +82,20 @@ Vector2f Entity::getOrigin()
 }
 
 /*
+ * Finds and returns the center of the entities body
+ */
+Vector2f Entity::getCenter()
+{
+    Vector2f center = body.getPosition();
+    center.x += body.getSize().x / 2;
+    center.y += body.getSize().y / 2;
+    return center;
+}
+
+/*
  * PAIN
  */
-void Entity::update()
+void Entity::update(GameManager *manager)
 {
 
 }

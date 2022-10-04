@@ -7,9 +7,14 @@ using sf::Vector2f;
 #include <SFML/Graphics.hpp>
 using sf::RectangleShape;
 
+#include "GameManager.h"
+class GameManager;
+
 class Entity
 {
 private:
+    // The current velocity of the entity
+    Vector2f velocity;
 
 protected:
     // The current health of the entity
@@ -22,8 +27,6 @@ protected:
     float move_speed;
 
 public:
-    // The current velocity of the entity
-    Vector2f velocity;
     // The body of the entity, kinda like the hitbox but also holds the sprite
     sf::RectangleShape body;
 
@@ -46,8 +49,11 @@ public:
     // Gets the origin of the entity
     Vector2f getOrigin();
 
+    // Gets the center of the hitbox/body
+    Vector2f getCenter();
+
     // Update function to be specified for more interesting behaviour
-    virtual void update();
+    virtual void update(GameManager *manager);
 };
 
 #endif // OOP_GROUP_PROJECT_ENTITY_H
