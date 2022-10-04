@@ -22,10 +22,17 @@
 all: main-compile main-link
 
 main-compile:
+	g++ -Isrc/include -c GameLibrary/Entity.cpp -o "object files/Entity.o"
+	g++ -Isrc/include -c GameLibrary/GameManager.cpp -o "object files/GameManager.o"
 	g++ -Isrc/include -c main.cpp -o "object files/main.o"
 
 main-link:
-	g++ "object files/main.o" -o "executables/main.exe" -Lsrc/lib -lsfml-graphics -lsfml-window -lsfml-system
+	g++ \
+	"object files/Entity.o" \
+	"object files/GameManager.o" \
+	"object files/main.o" \
+	-o "executables/main.exe" \
+	-Lsrc/lib -lsfml-graphics -lsfml-window -lsfml-system
 
 run:
 	./"executables/main.exe"
