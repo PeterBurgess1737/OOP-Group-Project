@@ -15,11 +15,19 @@ using sf::Vector2f;
 
 #include "GameLibrary/GameLibrary.h"
 
-
-class TempEnemy: public Entity
+class TempEnemy : public Entity
 {
+public:
+    TempEnemy(int health, float max_speed, float move_speed);
     void update(GameManager *manager);
 };
+
+TempEnemy::TempEnemy(int health, float max_speed, float move_speed)
+{
+    this->health = health;
+    this->max_speed = max_speed;
+    this->move_speed = move_speed;
+}
 
 void TempEnemy::update(GameManager *manager)
 {
@@ -30,7 +38,6 @@ void TempEnemy::update(GameManager *manager)
     changeVelocity(vec);
 }
 
-
 int main()
 {
     cout << "\n========== Program Start ==========\n"
@@ -38,7 +45,7 @@ int main()
 
     // Create the window
     RenderWindow window(sf::VideoMode(1280, 720),
-                            "OOP Group Project");
+                        "OOP Group Project");
 
     // Reducing the framerate to 60fps
     window.setFramerateLimit(60);
@@ -52,29 +59,23 @@ int main()
     player.body.setPosition(640.f, 360.f);
 
     // Create some enemies to play with the player
-    TempEnemy enemy1;
-    enemy1.body.setFillColor(Color::Magenta);
-    enemy1.body.setSize(Vector2f(25.f, 25.f));
-    enemy1.body.setPosition(500.f, 500.f);
-    enemy1.changeVelocity(1.f, 0.f);
-
-    Entity enemy2;
-    enemy2.body.setFillColor(Color::Magenta);
-    enemy2.body.setSize(Vector2f(25.f, 25.f));
-    enemy2.body.setPosition(500.f, 100.f);
+    TempEnemy enemy = TempEnemy(1, 1.f, 0.1f);
+    enemy.body.setFillColor(Color::Magenta);
+    enemy.body.setSize(Vector2f(25.f, 25.f));
+    enemy.body.setPosition(500.f, 500.f);
+    enemy.changeVelocity(2.f, 0.f);
 
     // Create the manager and pass the necessary stuff to it
     GameManager manager(&window);
     manager.setPlayer(&player);
-    manager.addEnemy(&enemy1);
-    manager.addEnemy(&enemy2);
+    manager.addEnemy(&enemy);
 
     // LOADS OF ENEMIES
     TempEnemy *temp_entity_pointer;
     for (int i = 0; i < 50; i++)
     {
         // Create the entity
-        temp_entity_pointer = new TempEnemy;
+        temp_entity_pointer = new TempEnemy(1, 5.f, 0.1f);
 
         // Make em special
         temp_entity_pointer->body.setFillColor(Color::Green);

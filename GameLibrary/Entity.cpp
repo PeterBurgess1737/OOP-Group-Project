@@ -47,7 +47,7 @@ void Entity::changeVelocity(float xAdjustment, float yAdjustment)
     velocity.y += yAdjustment;
 
     // Get the magnitude
-    const float velocity_magnitude = sqrtf(xAdjustment * xAdjustment + yAdjustment * yAdjustment);
+    const float velocity_magnitude = sqrtf(velocity.x * velocity.x + velocity.y * velocity.y);
 
     // If the magnitude is larger than the speed make the magnitude the speed
     if (velocity_magnitude > max_speed)
