@@ -117,8 +117,8 @@ int main()
         // Drawing stuff
         window.clear();
 
-        manager.drawPlayer();
         manager.drawEnemies();
+        manager.drawPlayer();
 
         // WOO
         window.display();
