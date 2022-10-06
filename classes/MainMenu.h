@@ -7,10 +7,16 @@ using sf::Vector2f;
 class MainMenu {
 protected:
     Vector2f buttonCoordinates;
+    // menu of buttons
+
     bool buttonIsPressed;
 
 public:
     // Displays the play, pause, resume and quit buttons.
+    void displayButton();
+    void checkButton();
+
+
     void displayPlayButton();
     void displayPauseButton();
     void displayResumeButton();

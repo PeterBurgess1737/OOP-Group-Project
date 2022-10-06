@@ -6,8 +6,8 @@ using sf::Vector2f;
 
 class Button {
 protected:
-    Vector2f buttonCoordinates;
     bool buttonIsPressed;
+    sf::Rect<float>;
 
 public:
     // Displays the play, pause, resume and quit buttons.

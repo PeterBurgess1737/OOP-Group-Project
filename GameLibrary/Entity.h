@@ -30,11 +30,11 @@ public:
     // The body of the entity, kinda like the hitbox but also holds the sprite
     sf::RectangleShape body;
 
-    // Simple default constructor, just for testing purposes and shouldnt be used
+    // Simple default constructor, just for testing purposes and shouldn't be used
     Entity();
 
     // Returns true if the damage taken results in death
-    bool takeDamage(unsigned int damage);
+    bool takeDamage(int damage);
 
     // Moves the entity's location by the current velocity
     void move();

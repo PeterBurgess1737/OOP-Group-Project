@@ -6,10 +6,6 @@
 void MainMenu::displayBackground(){
     sf::RenderWindow window(sf::VideoMode(800,800), "MAIN MENU");
     window.setFramerateLimit(100);
-
-    sf::Texture image;
-    image.loadFromFile("somefile.png");
-    sf::Sprite sprite(image);
 }
 
 // Display appropriate buttons
@@ -51,5 +47,8 @@ void MainMenu::displayQuitButton(){
 
 // Redirecting user to appropriate window
 void MainMenu::update(){
+
+    window.clear();
+    window.display();
 
 }

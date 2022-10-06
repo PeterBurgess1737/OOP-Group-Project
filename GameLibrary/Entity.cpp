@@ -3,13 +3,14 @@
 #include <SFML/System.hpp>
 using sf::Vector2f;
 
-#include <math.h>
+#include <cmath>
+using std::sqrt;
 
 #include "GameManager.h"
 
 /*
  * Entities default constructor
- * Shoudnt be used in the actual game as this is just for testing purposes
+ * Shouldn't be used in the actual game as this is just for testing purposes
  */
 Entity::Entity()
 {
@@ -23,7 +24,7 @@ Entity::Entity()
  * Reduces the health of the entity by damage amount
  * Returns true if the entity was 'killed' by the damage
  */
-bool Entity::takeDamage(unsigned int damage)
+bool Entity::takeDamage(int damage)
 {
     health -= damage;
     return health <= 0;

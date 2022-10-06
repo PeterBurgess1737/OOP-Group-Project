@@ -2,7 +2,8 @@
 using std::cout;
 using std::endl;
 
-#include <math.h>
+#include <cmath>
+using std::sqrt;
 
 #include <SFML/Graphics.hpp>
 using sf::RenderWindow;
@@ -19,7 +20,7 @@ class TempEnemy : public Entity
 {
 public:
     TempEnemy(int health, float max_speed, float move_speed);
-    void update(GameManager *manager);
+    void update(GameManager *manager) override;
 };
 
 TempEnemy::TempEnemy(int health, float max_speed, float move_speed)
