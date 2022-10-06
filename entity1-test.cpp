@@ -16,22 +16,23 @@ using sf::Vector2f;
 
 #include "GameLibrary/GameLibrary.h"
 
-class TempEnemy : public Entity
+class TestEnemy : public Entity
 {
 public:
-    TempEnemy(int health, float max_speed, float move_speed);
+    TestEnemy(int health, float max_speed, float move_speed);
     void update(GameManager *manager) override;
 };
 
-TempEnemy::TempEnemy(int health, float max_speed, float move_speed)
+TestEnemy::TestEnemy(int health, float max_speed, float move_speed)
 {
     this->health = health;
     this->max_speed = max_speed;
     this->move_speed = move_speed;
 }
 
-void TempEnemy::update(GameManager *manager)
+void TestEnemy::update(GameManager *manager)
 {
+    // Chase logic
     Vector2f vec = manager->player->getCenter() - getCenter();
     const float vec_mag = sqrt(vec.x * vec.x + vec.y * vec.y);
     vec /= vec_mag;
@@ -60,7 +61,7 @@ int main()
     player.body.setPosition(640.f, 360.f);
 
     // Create some enemies to play with the player
-    TempEnemy enemy = TempEnemy(1, 1.f, 0.1f);
+    TestEnemy enemy = TestEnemy(1, 1.f, 0.1f);
     enemy.body.setFillColor(Color::Magenta);
     enemy.body.setSize(Vector2f(25.f, 25.f));
     enemy.body.setPosition(500.f, 500.f);
@@ -70,22 +71,6 @@ int main()
     GameManager manager(&window);
     manager.setPlayer(&player);
     manager.addEnemy(&enemy);
-
-    // LOADS OF ENEMIES
-    TempEnemy *temp_entity_pointer;
-    for (int i = 0; i < 50; i++)
-    {
-        // Create the entity
-        temp_entity_pointer = new TempEnemy(1, 5.f, 0.1f);
-
-        // Make em special
-        temp_entity_pointer->body.setFillColor(Color::Green);
-        temp_entity_pointer->body.setSize(Vector2f(15.f, 15.f));
-        temp_entity_pointer->body.setPosition(100.f + (float)i * 20.f, 250.f);
-
-        // Pass it to the manager
-        manager.addEnemy(temp_entity_pointer);
-    }
 
     // Where the event being handled is stored
     sf::Event event;

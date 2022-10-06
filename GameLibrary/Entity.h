@@ -27,8 +27,8 @@ protected:
     float move_speed;
 
 public:
-    // The body of the entity, kinda like the hitbox but also holds the sprite
-    sf::RectangleShape body;
+    // Holds the display information, needs to be properly filled with data
+    RectangleShape body;
 
     // Simple default constructor, just for testing purposes and shouldn't be used
     Entity();
