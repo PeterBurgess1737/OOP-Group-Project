@@ -88,7 +88,7 @@ int main()
     }
 
     // Where the event being handled is stored
-    sf::Event event{};
+    sf::Event event;
 
     // Game loop
     while (window.isOpen())
