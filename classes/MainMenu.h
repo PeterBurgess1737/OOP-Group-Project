@@ -13,7 +13,8 @@ protected:
 
 public:
     // Displays the play, pause, resume and quit buttons.
-    void displayButton();
+    void displayButton(); // creates buttons
+    void buttonClicked();
     void checkButton();
 
 

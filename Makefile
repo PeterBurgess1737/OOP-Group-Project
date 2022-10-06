@@ -38,7 +38,12 @@ run:
 	./"executables/main.exe"
 
 mac:
-	g++ GameLibrary/Entity.cpp GameLibrary/GameManager.cpp main.cpp -o "executables/main-mac" -lsfml-graphics -lsfml-window -lsfml-system
+	g++ \
+	GameLibrary/Entity.cpp \
+	GameLibrary/GameManager.cpp \
+	main.cpp \
+	-o "executables/main-mac" \
+	-lsfml-graphics -lsfml-window -lsfml-system
 
 mac-run:
 	./"executables/main-mac"
@@ -50,18 +55,18 @@ entity1: entity1-compile entity1-link
 entity1-compile:
 	g++ -Isrc/include -c GameLibrary/Entity.cpp -o "object files/Entity.o"
 	g++ -Isrc/include -c GameLibrary/GameManager.cpp -o "object files/GameManager.o"
-	g++ -Isrc/include -c main.cpp -o "object files/main.o"
+	g++ -Isrc/include -c "entity1-test.cpp" -o "object files/entity1-test.o"
 
 entity1-link:
 	g++ \
 	"object files/Entity.o" \
 	"object files/GameManager.o" \
-	"object files/main.o" \
-	-o "executables/main.exe" \
+	"object files/entity1-test.o" \
+	-o "executables/entity1-test.exe" \
 	-Lsrc/lib -lsfml-graphics -lsfml-window -lsfml-system
 
 entity1-run:
-	./"executables/main.exe"
+	./"executables/entity1-test.exe"
 
 # Simple main file for testing if sfml works
 sfml: compile-sfml link-sfml

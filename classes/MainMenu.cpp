@@ -1,4 +1,5 @@
 #include "MainMenu.h"
+#include "Button.h"
 #include "SFML/Graphics.hpp"
 #include <iostream>
 
@@ -52,3 +53,5 @@ void MainMenu::update(){
     window.display();
 
 }
+
+// buttonUpdateFunction - passes in what mouse buttons are pressed, where the mouse is
