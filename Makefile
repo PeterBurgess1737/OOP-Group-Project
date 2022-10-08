@@ -68,6 +68,29 @@ entity1-link:
 entity1-run:
 	./"executables/entity1-test.exe"
 
+
+# A test for the hitboxes of entities
+hitbox1: hitbox1-compile hitbox1-link
+
+hitbox1-compile:
+	g++ -Isrc/include -c GameLibrary/Hitbox.cpp -o "object files/Hitbox.o"
+	g++ -Isrc/include -c GameLibrary/Entity.cpp -o "object files/Entity.o"
+	g++ -Isrc/include -c GameLibrary/GameManager.cpp -o "object files/GameManager.o"
+	g++ -Isrc/include -c hitbox1-test.cpp -o "object files/hitbox1-test.o"
+
+hitbox1-link:
+	g++ \
+	"object files/Hitbox.o" \
+	"object files/Entity.o" \
+	"object files/GameManager.o" \
+	"object files/hitbox1-test.o" \
+	-o "executables/hitbox1-test.exe" \
+	-Lsrc/lib -lsfml-graphics -lsfml-window -lsfml-system
+
+hitbox1-run:
+	./"executables/hitbox1-test.exe"
+
+
 # Simple main file for testing if sfml works
 sfml: compile-sfml link-sfml
 

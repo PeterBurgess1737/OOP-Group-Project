@@ -6,6 +6,9 @@ using sf::Vector2f;
 #include <cmath>
 using std::sqrt;
 
+#include <vector>
+using std::vector;
+
 #include "GameManager.h"
 
 /*
@@ -32,9 +35,52 @@ bool Entity::takeDamage(int damage)
 
 /*
  * Moves the entity by its current velocity
+ * Performs collision solving
  */
-void Entity::move(){
-    body.move(velocity);
+void Entity::move(vector<RectangleShape> hitboxes){
+    // If there is x-axis movement
+    if (velocity.x)
+    {
+        // Move along the x axis
+        body.move(velocity.x, 0);
+
+        // For every hitbox
+        for (RectangleShape hitbox : hitboxes)
+        {
+            // If there is a collision with a hitbox
+            if (body.collidesWith(hitbox))
+            {
+                // If moving right
+                if (velocity.x > 0)
+                    body.setRight(hitbox.getPosition().x);
+                // If moving left
+                else
+                    body.setLeft(hitbox.getPosition().x + hitbox.getSize().x);
+            }
+        }
+    }
+
+    // If there is y-axis movement
+    if (velocity.y)
+    {
+        // Move along the x axis
+        body.move(0, velocity.y);
+
+        // For every hitbox
+        for (RectangleShape hitbox : hitboxes)
+        {
+            // If there is a collision with a hitbox
+            if (body.collidesWith(hitbox))
+            {
+                // If moving down
+                if (velocity.y > 0)
+                    body.setBottom(hitbox.getPosition().y);
+                // If moving up
+                else
+                    body.setTop(hitbox.getPosition().y + hitbox.getSize().y);
+            }
+        }
+    }
 }
 
 /*

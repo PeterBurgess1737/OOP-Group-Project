@@ -7,6 +7,9 @@ using sf::RenderWindow;
 using std::cout;
 using std::endl;
 
+#include <vector>
+using std::vector;
+
 #include "Entity.h"
 
 /*
@@ -62,7 +65,11 @@ void GameManager::updateEnemies()
     for (Entity *enemy : enemies)
     {
         enemy->update(this);
-        enemy->move();
+
+        // Collect all the wanted rectanlges
+        vector<RectangleShape> temp;
+
+        enemy->move(temp);
     }
 }
 
