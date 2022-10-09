@@ -24,6 +24,7 @@ class Menu {
 protected:
     void draw_all();
     void set_values();
+    void loop_events();
 
 public:
     Menu();
