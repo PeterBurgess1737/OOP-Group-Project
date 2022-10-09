@@ -29,7 +29,7 @@ void RectangleHitbox::setLeft(float value)
 void RectangleHitbox::setRight(float value)
 {
     setPosition(
-        Vector2f(value + getSize().x, getPosition().y)
+        Vector2f(value - getSize().x, getPosition().y)
     );
 }
 void RectangleHitbox::setTop(float value)
@@ -41,7 +41,7 @@ void RectangleHitbox::setTop(float value)
 void RectangleHitbox::setBottom(float value)
 {
     setPosition(
-        Vector2f(getPosition().x, value + getSize().y)
+        Vector2f(getPosition().x, value - getSize().y)
     );
 }
 

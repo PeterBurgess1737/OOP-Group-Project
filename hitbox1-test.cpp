@@ -107,9 +107,11 @@ int main()
         vector<RectangleShape> temp;
         temp.push_back(unmoving.body);
 
-        // Moving
+        // Collecting hitboxes
         vector<RectangleShape> hitboxes;
         hitboxes.push_back(unmoving.body);
+        
+        // Moving
         for (Entity &moving : moving_entities)
         {
             moving.move(hitboxes);
