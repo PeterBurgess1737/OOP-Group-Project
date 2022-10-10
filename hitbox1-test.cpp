@@ -30,20 +30,20 @@ int main()
 
     // Entities to play with
     Entity unmoving;
-    unmoving.body.setPosition(300.f, 250.f);
+    unmoving.body.setPosition(300.f, 300.f);
     unmoving.body.setSize(Vector2f(100.f, 100.f));
 
     vector<Entity> moving_entities;
 
-    for (int x = 0; x < 3; x++)
+    for (int x = 0; x < 5; x++)
     {
         for (int y = 0; y < 2; y++)
         {
             Entity temp;
-            temp.body.setSize(Vector2f(50.f, 50.f));
+            temp.body.setSize(Vector2f(20.f, 20.f));
 
-            temp.body.setPosition(200.f + x * 125.f,
-                                  100.f + 350.f * y);
+            temp.body.setPosition(220.f + x * 60.f,
+                                  80.f + 520.f * y);
 
             if (y)
                 temp.body.setFillColor(Color::Red);
@@ -56,15 +56,15 @@ int main()
         }
     }
 
-    for (int y = 0; y < 3; y++)
+    for (int y = 0; y < 5; y++)
     {
         for (int x = 0; x < 2; x++)
         {
             Entity temp;
-            temp.body.setSize(Vector2f(50.f, 50.f));
+            temp.body.setSize(Vector2f(20.f, 20.f));
 
-            temp.body.setPosition(150.f + 350.f * x,
-                                  150.f + y * 125.f);
+            temp.body.setPosition(80.f + 520.f * x,
+                                  220.f + y * 60.f);
 
             if (x)
                 temp.body.setFillColor(Color::Yellow);
@@ -129,18 +129,6 @@ int main()
         // WOO
         window.display();
     }
-
-    cout << "Unmoving: "
-         << unmoving.body.getPosition().x
-         << ", "
-         << unmoving.body.getPosition().y
-         << endl;
-
-    cout << "Moving:   "
-         << moving_entities[8].body.getPosition().x
-         << ", "
-         << moving_entities[8].body.getPosition().y
-         << endl;
 
     cout << "\n=============== End ===============\n"
          << endl;
