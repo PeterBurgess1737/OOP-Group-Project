@@ -20,7 +20,6 @@ public:
     void setTop(float value);
     void setBottom(float value);
 
-    bool collidesWith(const RectangleShape &rectangle);
     bool collidesWith(const RectangleHitbox &rectangle);
 };
 

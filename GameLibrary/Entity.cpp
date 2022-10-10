@@ -37,7 +37,8 @@ bool Entity::takeDamage(int damage)
  * Moves the entity by its current velocity
  * Performs collision solving
  */
-void Entity::move(vector<RectangleShape> hitboxes){
+void Entity::move(vector<RectangleHitbox> hitboxes)
+{
     // If there is x-axis movement
     if (velocity.x)
     {
@@ -45,7 +46,7 @@ void Entity::move(vector<RectangleShape> hitboxes){
         body.move(velocity.x, 0);
 
         // For every hitbox
-        for (RectangleShape hitbox : hitboxes)
+        for (RectangleHitbox hitbox : hitboxes)
         {
             // If there is a collision with a hitbox
             if (body.collidesWith(hitbox))
@@ -67,7 +68,7 @@ void Entity::move(vector<RectangleShape> hitboxes){
         body.move(0, velocity.y);
 
         // For every hitbox
-        for (RectangleShape hitbox : hitboxes)
+        for (RectangleHitbox hitbox : hitboxes)
         {
             // If there is a collision with a hitbox
             if (body.collidesWith(hitbox))
@@ -144,5 +145,4 @@ Vector2f Entity::getCenter()
  */
 void Entity::update(GameManager *manager)
 {
-
 }

@@ -45,17 +45,6 @@ void RectangleHitbox::setBottom(float value)
     );
 }
 
-bool RectangleHitbox::collidesWith(const RectangleShape &rectangle)
-{
-    if (getLeft() < rectangle.getPosition().x + rectangle.getSize().x)
-        if (getRight() > rectangle.getPosition().x)
-            if (getTop() < rectangle.getPosition().y + rectangle.getSize().y)
-                if (getBottom() > rectangle.getPosition().y)
-                    return true;
-    
-    return false;
-}
-
 bool RectangleHitbox::collidesWith(const RectangleHitbox &rectangle)
 {
     if (getLeft() < rectangle.getRight())

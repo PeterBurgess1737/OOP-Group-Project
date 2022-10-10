@@ -104,11 +104,7 @@ int main()
         // Updates here
 
         // Collecting hitboxes
-        vector<RectangleShape> temp;
-        temp.push_back(unmoving.body);
-
-        // Collecting hitboxes
-        vector<RectangleShape> hitboxes;
+        vector<RectangleHitbox> hitboxes;
         hitboxes.push_back(unmoving.body);
         
         // Moving
