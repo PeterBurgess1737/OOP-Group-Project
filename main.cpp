@@ -25,6 +25,35 @@ using sf::Vector2i;
 #include "GameLibrary/GameLibrary.h"
 
 
+class PlayerProjectile: public Projectile
+{
+public:
+    PlayerProjectile(Vector2f position, float radius, Vector2f velocity, int damage, bool player_fired);
+
+    void draw(RenderWindow *window) override;
+};
+
+PlayerProjectile::PlayerProjectile(Vector2f position, float radius, Vector2f velocity, int damage, bool player_fired) : Projectile(position, radius, velocity, damage, player_fired) {}
+
+void PlayerProjectile::draw(sf::RenderWindow *window)
+{
+    window->draw(body);
+
+    CircleShape temp_circle(body.getRadius());
+    temp_circle.setPosition(body.getPosition());
+
+    for (int i = 0; i < 3; i++) {
+        temp_circle.setOrigin(temp_circle.getRadius() / 2, temp_circle.getRadius() / 2);
+        temp_circle.setScale(1.5f * (float)(i + 1), 1.5f * (float)(i + 1));
+
+        Color temp_colour = body.getFillColor();
+        temp_colour.a = (uint8_t)(255 / (i + 3));
+        temp_circle.setFillColor(temp_colour);
+        window->draw(temp_circle);
+    }
+}
+
+
 class Player : public Entity
 {
 public:
@@ -62,7 +91,7 @@ void Player::fire(GameManager *manager, Vector2i mouse_pos)
         float magnitude = sqrt(direction_to_mouse.x * direction_to_mouse.x + direction_to_mouse.y * direction_to_mouse.y);
         direction_to_mouse /= magnitude;
         direction_to_mouse *= 3.f; // Bullet speed
-        auto *temp = new Projectile(
+        auto *temp = new PlayerProjectile(
                 getCenter(),
                 3.f,
                 direction_to_mouse,
@@ -74,21 +103,6 @@ void Player::fire(GameManager *manager, Vector2i mouse_pos)
 
         bullet_delay = 3;
     }
-}
-
-
-class PlayerProjectile: public Projectile
-{
-    PlayerProjectile(Vector2f position, float radius, Vector2f velocity, int damage, bool player_fired);
-
-    void draw(RenderWindow *window);
-};
-
-PlayerProjectile::PlayerProjectile(Vector2f position, float radius, Vector2f velocity, int damage, bool player_fired) : Projectile(position, radius, velocity, damage, player_fired) {}
-
-void PlayerProjectile::draw(sf::RenderWindow *window)
-{
-    window->draw(body);
 }
 
 
