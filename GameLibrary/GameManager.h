@@ -19,7 +19,7 @@ public:
     RenderWindow *window;
 
     // Constructor, window is necessary for the draw functions
-    GameManager(RenderWindow *window);
+    explicit GameManager(RenderWindow *window);
 
     // Contains pointers to all the hitboxes in all entities that are handled
     vector<RectangleHitbox *> all_enemy_hitboxes;
@@ -27,11 +27,11 @@ public:
     // Player
     Entity *player;
     // Set the player entity
-    void setPlayer(Entity *player);
+    void setPlayer(Entity *new_player);
     // Updates the player entity
     void updatePlayer();
     // Draws the player to the window given in construction
-    void drawPlayer();
+    void drawPlayer() const;
 
     // Enemies
     vector<Entity *> enemies;

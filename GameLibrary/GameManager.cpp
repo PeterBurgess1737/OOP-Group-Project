@@ -26,10 +26,10 @@ GameManager::GameManager(RenderWindow *window)
 /*
  * Set the managers player entity
  */
-void GameManager::setPlayer(Entity *player)
+void GameManager::setPlayer(Entity *new_player)
 {
     // Player time
-    this->player = player;
+    player = new_player;
 }
 
 /*
@@ -43,7 +43,7 @@ void GameManager::updatePlayer()
 /*
  * Draws the payer entity to the handled window
  */
-void GameManager::drawPlayer()
+void GameManager::drawPlayer() const
 {
     window->draw(player->body);
 }
@@ -75,7 +75,7 @@ void GameManager::updateEnemies()
 }
 
 /*
- * Draws all handled enemy entites to the handled window
+ * Draws all handled enemy entities to the handled window
  */
 void GameManager::drawEnemies()
 {

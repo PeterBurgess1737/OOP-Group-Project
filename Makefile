@@ -22,13 +22,17 @@
 all: main-compile main-link
 
 main-compile:
+	g++ -Isrc/include -c GameLibrary/Hitbox.cpp -o "object files/Hitbox.o"
 	g++ -Isrc/include -c GameLibrary/Entity.cpp -o "object files/Entity.o"
+	g++ -Isrc/include -c GameLibrary/Projectile.cpp -o "object files/Projectile.o"
 	g++ -Isrc/include -c GameLibrary/GameManager.cpp -o "object files/GameManager.o"
 	g++ -Isrc/include -c main.cpp -o "object files/main.o"
 
 main-link:
 	g++ \
+	"object files/Hitbox.o" \
 	"object files/Entity.o" \
+	"object files/Projectile.o" \
 	"object files/GameManager.o" \
 	"object files/main.o" \
 	-o "executables/main.exe" \

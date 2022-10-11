@@ -6,6 +6,7 @@ using sf::Vector2f;
 
 #include <SFML/Graphics.hpp>
 using sf::RectangleShape;
+using sf::CircleShape;
 
 class RectangleHitbox: public RectangleShape
 {
@@ -21,6 +22,14 @@ public:
     void setBottom(float value);
 
     bool collidesWith(const RectangleHitbox &rectangle);
+};
+
+class CircleHitbox: public CircleShape
+{
+public:
+
+    bool collidesWith(const RectangleHitbox &rectangle);
+
 };
 
 #endif // OOP_GROUP_PROJECT_HITBOX_H

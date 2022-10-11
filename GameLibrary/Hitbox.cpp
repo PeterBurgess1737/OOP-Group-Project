@@ -55,3 +55,9 @@ bool RectangleHitbox::collidesWith(const RectangleHitbox &rectangle)
     
     return false;
 }
+
+bool CircleHitbox::collidesWith(const RectangleHitbox &rectangle) {
+
+
+    return false;
+}
