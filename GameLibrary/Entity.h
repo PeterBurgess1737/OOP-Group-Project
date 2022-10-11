@@ -21,7 +21,7 @@ private:
     // The current velocity of the entity
     Vector2f velocity;
 
-protected:
+public:
     // The current health of the entity
     int health;
 
@@ -31,7 +31,6 @@ protected:
     // The speed the entity moves at, or the distance per frame
     float move_speed;
 
-public:
     // Holds both the display information and the hitbox information
     // Needs to be properly initialised
     RectangleHitbox body;

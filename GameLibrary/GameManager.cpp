@@ -36,10 +36,10 @@ void GameManager::setPlayer(Entity *new_player)
 
 /*
  * Updates the player entity
- *
  */
 void GameManager::updatePlayer()
 {
+
 }
 
 /*

@@ -150,7 +150,7 @@ Vector2f Entity::getCenter()
 }
 
 /*
- * PAIN
+ * Update function to be redefined if more interesting behaviour is necessary
  */
 void Entity::update(GameManager *manager)
 {
