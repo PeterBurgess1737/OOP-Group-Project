@@ -10,6 +10,8 @@ using sf::RenderWindow;
 #include "Entity.h"
 class Entity;
 
+#include "Hitbox.h"
+
 class GameManager
 {
 public:
@@ -17,16 +19,19 @@ public:
     RenderWindow *window;
 
     // Constructor, window is necessary for the draw functions
-    GameManager(RenderWindow *window);
+    explicit GameManager(RenderWindow *window);
+
+    // Contains pointers to all the hitboxes in all entities that are handled
+    vector<RectangleHitbox *> all_enemy_hitboxes;
 
     // Player
     Entity *player;
     // Set the player entity
-    void setPlayer(Entity *player);
+    void setPlayer(Entity *new_player);
     // Updates the player entity
     void updatePlayer();
     // Draws the player to the window given in construction
-    void drawPlayer();
+    void drawPlayer() const;
 
     // Enemies
     vector<Entity *> enemies;
@@ -36,7 +41,6 @@ public:
     void updateEnemies();
     // Draws all the enemies
     void drawEnemies();
-
 };
 
 #endif // OOP_GROUP_PROJECT_GAMEMANAGER_H

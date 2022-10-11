@@ -22,13 +22,17 @@
 all: main-compile main-link
 
 main-compile:
+	g++ -Isrc/include -c GameLibrary/Hitbox.cpp -o "object files/Hitbox.o"
 	g++ -Isrc/include -c GameLibrary/Entity.cpp -o "object files/Entity.o"
+	g++ -Isrc/include -c GameLibrary/Projectile.cpp -o "object files/Projectile.o"
 	g++ -Isrc/include -c GameLibrary/GameManager.cpp -o "object files/GameManager.o"
 	g++ -Isrc/include -c main.cpp -o "object files/main.o"
 
 main-link:
 	g++ \
+	"object files/Hitbox.o" \
 	"object files/Entity.o" \
+	"object files/Projectile.o" \
 	"object files/GameManager.o" \
 	"object files/main.o" \
 	-o "executables/main.exe" \
@@ -53,12 +57,14 @@ mac-run:
 entity1: entity1-compile entity1-link
 
 entity1-compile:
+	g++ -Isrc/include -c GameLibrary/Hitbox.cpp -o "object files/Hitbox.o"
 	g++ -Isrc/include -c GameLibrary/Entity.cpp -o "object files/Entity.o"
 	g++ -Isrc/include -c GameLibrary/GameManager.cpp -o "object files/GameManager.o"
 	g++ -Isrc/include -c entity1-test.cpp -o "object files/entity1-test.o"
 
 entity1-link:
 	g++ \
+	"object files/Hitbox.o" \
 	"object files/Entity.o" \
 	"object files/GameManager.o" \
 	"object files/entity1-test.o" \
@@ -67,6 +73,87 @@ entity1-link:
 
 entity1-run:
 	./"executables/entity1-test.exe"
+
+entity1-mac:
+	g++ \
+	GameLibrary/Hitbox.cpp \
+	GameLibrary/Entity.cpp \
+	GameLibrary/GameManager.cpp \
+	entity1-test.cpp \
+	-o "executables/entity1-test-mac" \
+	-lsfml-graphics -lsfml-window -lsfml-system
+
+entity1-mac-run:
+	./"executables/entity1-test-mac"
+
+
+# A test for the hitboxes of entities
+hitbox1: hitbox1-compile hitbox1-link
+
+hitbox1-compile:
+	g++ -Isrc/include -c GameLibrary/Hitbox.cpp -o "object files/Hitbox.o"
+	g++ -Isrc/include -c GameLibrary/Entity.cpp -o "object files/Entity.o"
+	g++ -Isrc/include -c GameLibrary/GameManager.cpp -o "object files/GameManager.o"
+	g++ -Isrc/include -c hitbox1-test.cpp -o "object files/hitbox1-test.o"
+
+hitbox1-link:
+	g++ \
+	"object files/Hitbox.o" \
+	"object files/Entity.o" \
+	"object files/GameManager.o" \
+	"object files/hitbox1-test.o" \
+	-o "executables/hitbox1-test.exe" \
+	-Lsrc/lib -lsfml-graphics -lsfml-window -lsfml-system
+
+hitbox1-run:
+	./"executables/hitbox1-test.exe"
+
+hitbox1-mac:
+	g++ \
+	GameLibrary/Hitbox.cpp \
+	GameLibrary/Entity.cpp \
+	GameLibrary/GameManager.cpp \
+	hitbox1-test.cpp \
+	-o "executables/hitbox1-test-mac" \
+	-lsfml-graphics -lsfml-window -lsfml-system
+
+hitbox1-mac-run:
+	./"executables/hitbox1-test-mac"
+
+
+# A more complex test for the hitboxes of entities
+hitbox2: hitbox2-compile hitbox2-link
+
+hitbox2-compile:
+	g++ -Isrc/include -c GameLibrary/Hitbox.cpp -o "object files/Hitbox.o"
+	g++ -Isrc/include -c GameLibrary/Entity.cpp -o "object files/Entity.o"
+	g++ -Isrc/include -c GameLibrary/GameManager.cpp -o "object files/GameManager.o"
+	g++ -Isrc/include -c hitbox2-test.cpp -o "object files/hitbox2-test.o"
+
+hitbox2-link:
+	g++ \
+	"object files/Hitbox.o" \
+	"object files/Entity.o" \
+	"object files/GameManager.o" \
+	"object files/hitbox2-test.o" \
+	-o "executables/hitbox2-test.exe" \
+	-Lsrc/lib -lsfml-graphics -lsfml-window -lsfml-system
+
+hitbox2-run:
+	./"executables/hitbox2-test.exe"
+
+hitbox2-mac:
+	g++ \
+	GameLibrary/Hitbox.cpp \
+	GameLibrary/Entity.cpp \
+	GameLibrary/GameManager.cpp \
+	hitbox2-test.cpp \
+	-o "executables/hitbox2-test-mac" \
+	-lsfml-graphics -lsfml-window -lsfml-system
+
+hitbox2-mac-run:
+	./"executables/hitbox2-test-mac"
+
 
 # Simple main file for testing if sfml works
 sfml: compile-sfml link-sfml

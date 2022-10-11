@@ -7,8 +7,13 @@ using sf::Vector2f;
 #include <SFML/Graphics.hpp>
 using sf::RectangleShape;
 
+#include <vector>
+using std::vector;
+
 #include "GameManager.h"
 class GameManager;
+
+#include "Hitbox.h"
 
 class Entity
 {
@@ -27,8 +32,9 @@ protected:
     float move_speed;
 
 public:
-    // Holds the display information, needs to be properly filled with data
-    RectangleShape body;
+    // Holds both the display information and the hitbox information
+    // Needs to be properly initialised
+    RectangleHitbox body;
 
     // Simple default constructor, just for testing purposes and shouldn't be used
     Entity();
@@ -37,7 +43,7 @@ public:
     bool takeDamage(int damage);
 
     // Moves the entity's location by the current velocity
-    void move();
+    void move(const vector<RectangleHitbox *>& hitboxes);
 
     // Adjusts the velocity by the values given
     void changeVelocity(Vector2f adjustment);

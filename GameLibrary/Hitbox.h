@@ -4,8 +4,31 @@
 #include <SFML/System.hpp>
 using sf::Vector2f;
 
-class Hitbox
+#include <SFML/Graphics.hpp>
+using sf::RectangleShape;
+using sf::CircleShape;
+
+class RectangleHitbox: public RectangleShape
 {
+public:
+    float getLeft() const;
+    float getRight() const;
+    float getTop() const;
+    float getBottom() const;
+
+    void setLeft(float value);
+    void setRight(float value);
+    void setTop(float value);
+    void setBottom(float value);
+
+    bool collidesWith(const RectangleHitbox &rectangle);
+};
+
+class CircleHitbox: public CircleShape
+{
+public:
+
+    bool collidesWith(const RectangleHitbox &rectangle);
 
 };
 

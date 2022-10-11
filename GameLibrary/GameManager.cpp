@@ -7,6 +7,9 @@ using sf::RenderWindow;
 using std::cout;
 using std::endl;
 
+#include <vector>
+using std::vector;
+
 #include "Entity.h"
 
 /*
@@ -23,25 +26,24 @@ GameManager::GameManager(RenderWindow *window)
 /*
  * Set the managers player entity
  */
-void GameManager::setPlayer(Entity *player)
+void GameManager::setPlayer(Entity *new_player)
 {
     // Player time
-    this->player = player;
+    player = new_player;
 }
 
 /*
  * Updates the player entity
- * 
+ *
  */
 void GameManager::updatePlayer()
 {
-
 }
 
 /*
  * Draws the payer entity to the handled window
  */
-void GameManager::drawPlayer()
+void GameManager::drawPlayer() const
 {
     window->draw(player->body);
 }
@@ -51,7 +53,11 @@ void GameManager::drawPlayer()
  */
 void GameManager::addEnemy(Entity *enemy)
 {
+    // Add the enemy
     enemies.push_back(enemy);
+
+    // Grab its hitbox
+    all_enemy_hitboxes.push_back(&enemy->body);
 }
 
 /*
@@ -59,15 +65,17 @@ void GameManager::addEnemy(Entity *enemy)
  */
 void GameManager::updateEnemies()
 {
+    // Update all the entities
     for (Entity *enemy : enemies)
     {
         enemy->update(this);
-        enemy->move();
+
+        enemy->move(all_enemy_hitboxes);
     }
 }
 
 /*
- * Draws all handled enemy entites to the handled window
+ * Draws all handled enemy entities to the handled window
  */
 void GameManager::drawEnemies()
 {

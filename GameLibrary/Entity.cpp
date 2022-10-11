@@ -6,6 +6,10 @@ using sf::Vector2f;
 #include <cmath>
 using std::sqrt;
 
+#include <vector>
+using std::vector;
+
+#include "Hitbox.h"
 #include "GameManager.h"
 
 /*
@@ -32,9 +36,61 @@ bool Entity::takeDamage(int damage)
 
 /*
  * Moves the entity by its current velocity
+ * Performs collision solving
  */
-void Entity::move(){
-    body.move(velocity);
+void Entity::move(const vector<RectangleHitbox *>& hitboxes)
+{
+    // If there is x-axis movement
+    if (velocity.x != 0)
+    {
+        // Move along the x-axis
+        body.move(velocity.x, 0);
+
+        // For every hitbox
+        for (RectangleHitbox *hitbox : hitboxes)
+        {
+            // If not the hitbox of this entity
+            if (hitbox != &body)
+            {
+                // If there is a collision with a hitbox
+                if (body.collidesWith(*hitbox))
+                {
+                    // If moving right
+                    if (velocity.x > 0)
+                        body.setRight(hitbox->getLeft());
+                    // If moving left
+                    else
+                        body.setLeft(hitbox->getRight());
+                }
+            }
+        }
+    }
+
+    // If there is y-axis movement
+    if (velocity.y != 0)
+    {
+        // Move along the x-axis
+        body.move(0, velocity.y);
+
+        // For every hitbox
+        for (RectangleHitbox *hitbox : hitboxes)
+        {
+            // If not the hitbox of this entity
+            if (hitbox != &body)
+            {
+                // If there is a collision with a hitbox
+                if (body.collidesWith(*hitbox))
+                {
+                    // If moving down
+                    if (velocity.y > 0)
+                        body.setBottom(hitbox->getTop());
+                    // If moving up
+                    else
+                        body.setTop(hitbox->getBottom());
+                }
+            }
+        }
+    }
 }
 
 /*
@@ -98,5 +154,4 @@ Vector2f Entity::getCenter()
  */
 void Entity::update(GameManager *manager)
 {
-
 }
