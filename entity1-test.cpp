@@ -47,7 +47,7 @@ int main()
 
     // Create the window
     RenderWindow window(sf::VideoMode(1280, 720),
-                        "OOP Group Project");
+                        "Entity1 Test");
 
     // Reducing the framerate to 60fps
     window.setFramerateLimit(60);

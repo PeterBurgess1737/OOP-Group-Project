@@ -23,36 +23,38 @@ int main()
 
     // Create the window
     RenderWindow window(sf::VideoMode(1280, 720),
-                        "Hitbox1 Test");
+                        "Hitbox2 Test");
 
     // Reducing the framerate to 60fps
     window.setFramerateLimit(60);
+    
+    // Using the game manager
+    GameManager manager(&window);
 
     // Entities to play with
-    Entity unmoving;
-    unmoving.body.setPosition(300.f, 300.f);
-    unmoving.body.setSize(Vector2f(100.f, 100.f));
-
-    vector<Entity> moving_entities;
+    Entity *unmoving = new Entity;
+    unmoving->body.setPosition(300.f, 300.f);
+    unmoving->body.setSize(Vector2f(100.f, 100.f));
+    manager.addEnemy(unmoving);
 
     for (int x = 0; x < 5; x++)
     {
         for (int y = 0; y < 2; y++)
         {
-            Entity temp;
-            temp.body.setSize(Vector2f(20.f, 20.f));
+            Entity *temp = new Entity;
+            temp->body.setSize(Vector2f(20.f, 20.f));
 
-            temp.body.setPosition(220.f + x * 60.f,
+            temp->body.setPosition(220.f + x * 60.f,
                                   80.f + 520.f * y);
 
             if (y)
-                temp.body.setFillColor(Color::Red);
+                temp->body.setFillColor(Color::Red);
             else
-                temp.body.setFillColor(Color::Magenta);
+                temp->body.setFillColor(Color::Magenta);
 
-            temp.changeVelocity(0.f, 1.f - 2.f * y);
+            temp->changeVelocity(0.f, 1.f - 2.f * y);
 
-            moving_entities.push_back(temp);
+            manager.addEnemy(temp);
         }
     }
 
@@ -60,20 +62,20 @@ int main()
     {
         for (int x = 0; x < 2; x++)
         {
-            Entity temp;
-            temp.body.setSize(Vector2f(20.f, 20.f));
+            Entity *temp = new Entity;
+            temp->body.setSize(Vector2f(20.f, 20.f));
 
-            temp.body.setPosition(80.f + 520.f * x,
+            temp->body.setPosition(80.f + 520.f * x,
                                   220.f + y * 60.f);
 
             if (x)
-                temp.body.setFillColor(Color::Yellow);
+                temp->body.setFillColor(Color::Yellow);
             else
-                temp.body.setFillColor(Color::Cyan);
+                temp->body.setFillColor(Color::Cyan);
             
-            temp.changeVelocity(1.f - 2.f * x, 0.f);
+            temp->changeVelocity(1.f - 2.f * x, 0.f);
 
-            moving_entities.push_back(temp);
+            manager.addEnemy(temp);
         }
     }
 
@@ -96,32 +98,21 @@ int main()
                 if (event.key.code == sf::Keyboard::Escape)
                     window.close();
                 break;
-                
+
             default:
                 break;
             }
         }
 
         // Updates here
-
-        // Collecting hitboxes
-        vector<RectangleHitbox *> hitboxes;
-        hitboxes.push_back(&unmoving.body);
         
         // Moving
-        for (Entity &moving : moving_entities)
-        {
-            moving.move(hitboxes);
-        }
+        manager.updateEnemies();
 
         // Drawing stuff
         window.clear();
 
-        window.draw(unmoving.body);
-        for (Entity &moving : moving_entities)
-        {
-            window.draw(moving.body);
-        }
+        manager.drawEnemies();
 
         // WOO
         window.display();

@@ -43,7 +43,7 @@ public:
     bool takeDamage(int damage);
 
     // Moves the entity's location by the current velocity
-    void move(vector<RectangleHitbox> hitboxes);
+    void move(vector<RectangleHitbox *> hitboxes);
 
     // Adjusts the velocity by the values given
     void changeVelocity(Vector2f adjustment);

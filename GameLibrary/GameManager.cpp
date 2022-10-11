@@ -34,11 +34,10 @@ void GameManager::setPlayer(Entity *player)
 
 /*
  * Updates the player entity
- * 
+ *
  */
 void GameManager::updatePlayer()
 {
-
 }
 
 /*
@@ -54,7 +53,11 @@ void GameManager::drawPlayer()
  */
 void GameManager::addEnemy(Entity *enemy)
 {
+    // Add the enemy
     enemies.push_back(enemy);
+
+    // Grab its hitbox
+    all_enemy_hitboxes.push_back(&enemy->body);
 }
 
 /*
@@ -62,14 +65,12 @@ void GameManager::addEnemy(Entity *enemy)
  */
 void GameManager::updateEnemies()
 {
+    // Update all the entities
     for (Entity *enemy : enemies)
     {
         enemy->update(this);
 
-        // Collect all the wanted rectanlges
-        vector<RectangleShape> temp;
-
-        enemy->move(temp);
+        enemy->move(all_enemy_hitboxes);
     }
 }
 
