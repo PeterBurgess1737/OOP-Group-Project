@@ -39,7 +39,7 @@ void GameManager::setPlayer(Entity *new_player)
  */
 void GameManager::updatePlayer()
 {
-
+    player->update(this);
 }
 
 /*
