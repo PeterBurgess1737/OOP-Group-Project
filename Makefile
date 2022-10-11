@@ -53,12 +53,14 @@ mac-run:
 entity1: entity1-compile entity1-link
 
 entity1-compile:
+	g++ -Isrc/include -c GameLibrary/Hitbox.cpp -o "object files/Hitbox.o"
 	g++ -Isrc/include -c GameLibrary/Entity.cpp -o "object files/Entity.o"
 	g++ -Isrc/include -c GameLibrary/GameManager.cpp -o "object files/GameManager.o"
 	g++ -Isrc/include -c entity1-test.cpp -o "object files/entity1-test.o"
 
 entity1-link:
 	g++ \
+	"object files/Hitbox.o" \
 	"object files/Entity.o" \
 	"object files/GameManager.o" \
 	"object files/entity1-test.o" \
