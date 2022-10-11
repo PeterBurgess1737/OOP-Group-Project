@@ -60,11 +60,11 @@ void Player::fire(GameManager *manager, Vector2i mouse_pos)
                 );
         float magnitude = sqrt(direction_to_mouse.x * direction_to_mouse.x + direction_to_mouse.y * direction_to_mouse.y);
         direction_to_mouse /= magnitude;
-        direction_to_mouse *= 3.f;
+        direction_to_mouse *= 3.f; // Bullet speed
         manager->addProjectile(
                 new Projectile(
                         getCenter(),
-                        2.5f,
+                        3.f,
                         direction_to_mouse,
                         1,
                         true
@@ -88,12 +88,15 @@ public:
 
 BasicEnemy::BasicEnemy()
 {
+    // Basic stats
     this->health = 5;
-    this->max_speed = 2.f;
-    this->move_speed = 0.2f;
+    this->max_speed = 1.f;
+    this->move_speed = 0.1f;
 
-    this->body.setSize(Vector2f(20.f, 20.f));
+    // Size
+    this->body.setSize(Vector2f(27.f, 32.f));
 
+    // Colouring
     this->body.setFillColor(Color::Red);
 
     // Random position spawning
@@ -130,6 +133,102 @@ void BasicEnemy::update(GameManager *manager)
 }
 
 
+class FastEnemy : public BasicEnemy
+{
+public:
+    int counter = 0;
+
+    FastEnemy();
+
+    void update(GameManager *manager) override;
+};
+
+FastEnemy::FastEnemy()
+{
+    // Basic stats
+    this->health = 2;
+    this->max_speed = 2.f;
+    this->move_speed = 0.2f;
+
+    // Size
+    this->body.setSize(Vector2f(42.f, 24.f));
+
+    // Colouring
+    this->body.setFillColor(Color::Yellow);
+
+    // Random position spawning
+    switch (rand() % 4) {
+        case 0: // The top
+            this->body.setPosition((float)(rand() % 1280), -50.f);
+            break;
+        case 1: // The bottom
+            this->body.setPosition((float)(rand() % 1280), -770.f);
+            break;
+        case 2: // The left
+            this->body.setPosition(-50.f, (float)(rand() % 720));
+            break;
+        case 3: // The right
+            this->body.setPosition(1330.f, (float)(rand() % 720));
+            break;
+    }
+}
+
+void FastEnemy::update(GameManager *manager)
+{
+    // Chase logic
+    Vector2f vec = getUnitVectorToPlayer(manager);
+    vec *= move_speed;
+    changeVelocity(vec);
+}
+
+
+class BigEnemy: public BasicEnemy
+{
+public:
+    BigEnemy();
+
+    void update(GameManager *manager) override;
+};
+
+BigEnemy::BigEnemy()
+{
+    // Basic stats
+    this->health = 40;
+    this->max_speed = 0.5f;
+    this->move_speed = 0.01f;
+
+    // Size
+    this->body.setSize(Vector2f(51.f, 53.f));
+
+    // Colouring
+    this->body.setFillColor(Color::Magenta);
+
+    // Random position spawning
+    switch (rand() % 4) {
+        case 0: // The top
+            this->body.setPosition((float)(rand() % 1280), -50.f);
+            break;
+        case 1: // The bottom
+            this->body.setPosition((float)(rand() % 1280), -770.f);
+            break;
+        case 2: // The left
+            this->body.setPosition(-50.f, (float)(rand() % 720));
+            break;
+        case 3: // The right
+            this->body.setPosition(1330.f, (float)(rand() % 720));
+            break;
+    }
+}
+
+void BigEnemy::update(GameManager *manager)
+{
+    // Chase logic
+    Vector2f vec = getUnitVectorToPlayer(manager);
+    vec *= move_speed;
+    changeVelocity(vec);
+}
+
+
 int main()
 {
     cout << "\n========== Program Start ==========\n"
@@ -156,7 +255,20 @@ int main()
     int frame_counter = 0;
 
     // Difficulty, increases spawn rate, increases every 7 seconds
-    int difficulty = 1;
+    int difficulty = 0;
+
+    int difficulty_increase = 420; // 420
+
+    int basic_enemy_spawn_delay = 120;
+    int basic_enemy_max_spawn_threshold = 40; // Enemy 3/2 times a second means 7.5 damage/s
+
+    int fast_enemy_difficulty = 5;
+    int fast_enemy_spawn_delay = 150;
+    int fast_enemy_max_spawn_threshold = 30; // Enemy 2 times a second means 4 damage/s
+
+    int big_enemy_difficulty = 10;
+    int big_enemy_spawn_delay = 300;
+    int big_enemy_max_spawn_threshold = 60; // Enemy 1 times a second means 40 damage/s
 
     // Game loop
     while (window.isOpen())
@@ -174,36 +286,54 @@ int main()
                 if (event.key.code == sf::Keyboard::Escape)
                     window.close();
                 break;
+
             default:
                 break;
             }
         }
 
+        cout << "========== Frame ==========" << endl;
+
         // Frame counting
         frame_counter++;
 
         // Increasing difficulty
-        if (frame_counter % 420 == 0)
+        if (frame_counter % difficulty_increase == 0)
         {
             difficulty++;
+
+            if (basic_enemy_spawn_delay > basic_enemy_max_spawn_threshold)
+                basic_enemy_spawn_delay--;
+
+            if (difficulty > fast_enemy_difficulty)
+            {
+                if (fast_enemy_spawn_delay > fast_enemy_max_spawn_threshold)
+                    fast_enemy_spawn_delay--;
+            }
+
+            if (difficulty > big_enemy_max_spawn_threshold)
+            {
+                if (big_enemy_spawn_delay > big_enemy_max_spawn_threshold)
+                    big_enemy_spawn_delay--;
+            }
         }
 
         // Spawning basic enemy
-        if (frame_counter % (120 - difficulty) == 0)
+        if (frame_counter % basic_enemy_spawn_delay == 0)
         {
             manager.addEnemy(new BasicEnemy());
         }
 
-        // Spawning faster enemy
-        if (difficulty > 5)
+        // Spawning fast enemy
+        if (frame_counter % fast_enemy_spawn_delay == 0)
         {
-
+            manager.addEnemy(new FastEnemy());
         }
 
-        // Spawning in TANK
-        if (difficulty > 10)
+        // Spawning big enemy
+        if (frame_counter % big_enemy_spawn_delay == 0)
         {
-
+            manager.addEnemy(new BigEnemy());
         }
 
         // Bullet spawning

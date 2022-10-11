@@ -21,6 +21,12 @@ public:
     // The window being drawn to
     RenderWindow *window;
 
+    // If the game is paused
+    bool paused = false;
+
+    // If the game has been lost
+    bool loss = false;
+
     // Constructor, window is necessary for the draw functions
     explicit GameManager(RenderWindow *window);
 
