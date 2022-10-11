@@ -68,6 +68,18 @@ entity1-link:
 entity1-run:
 	./"executables/entity1-test.exe"
 
+entity1-mac:
+	g++ \
+	GameLibrary/Hitbox.cpp \
+	GameLibrary/Entity.cpp \
+	GameLibrary/GameManager.cpp \
+	entity1-test.cpp \
+	-o "executables/entity1-test-mac" \
+	-lsfml-graphics -lsfml-window -lsfml-system
+
+entity1-mac-run:
+	./"executables/entity1-test-mac"
+
 
 # A test for the hitboxes of entities
 hitbox1: hitbox1-compile hitbox1-link
@@ -90,6 +102,18 @@ hitbox1-link:
 hitbox1-run:
 	./"executables/hitbox1-test.exe"
 
+hitbox1-mac:
+	g++ \
+	GameLibrary/Hitbox.cpp \
+	GameLibrary/Entity.cpp \
+	GameLibrary/GameManager.cpp \
+	hitbox1-test.cpp \
+	-o "executables/hitbox1-test-mac" \
+	-lsfml-graphics -lsfml-window -lsfml-system
+
+hitbox1-mac-run:
+	./"executables/hitbox1-test-mac"
+
 
 # A more complex test for the hitboxes of entities
 hitbox2: hitbox2-compile hitbox2-link
@@ -111,6 +135,18 @@ hitbox2-link:
 
 hitbox2-run:
 	./"executables/hitbox2-test.exe"
+
+hitbox2-mac:
+	g++ \
+	GameLibrary/Hitbox.cpp \
+	GameLibrary/Entity.cpp \
+	GameLibrary/GameManager.cpp \
+	hitbox2-test.cpp \
+	-o "executables/hitbox2-test-mac" \
+	-lsfml-graphics -lsfml-window -lsfml-system
+
+hitbox2-mac-run:
+	./"executables/hitbox2-test-mac"
 
 
 # Simple main file for testing if sfml works
