@@ -99,13 +99,12 @@ int main()
         // Updates here
         manager.updateEnemies();
 
-        // Drawing stuff
+        // Drawing entities
         window.clear();
 
         manager.drawPlayer();
         manager.drawEnemies();
 
-        // WOO
         window.display();
     }
 

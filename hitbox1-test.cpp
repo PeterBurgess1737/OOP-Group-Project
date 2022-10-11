@@ -28,7 +28,7 @@ int main()
     // Reducing the framerate to 60fps
     window.setFramerateLimit(60);
 
-    // Entities to play with
+    // Creating entities to test
     Entity unmoving;
     unmoving.body.setPosition(300.f, 300.f);
     unmoving.body.setSize(Vector2f(100.f, 100.f));
@@ -114,7 +114,7 @@ int main()
             moving.move(hitboxes);
         }
 
-        // Drawing stuff
+        // Drawing entities on the screen
         window.clear();
 
         window.draw(unmoving.body);
@@ -123,7 +123,6 @@ int main()
             window.draw(moving.body);
         }
 
-        // WOO
         window.display();
     }
 

@@ -155,3 +155,11 @@ Vector2f Entity::getCenter()
 void Entity::update(GameManager *manager)
 {
 }
+
+/*
+ * Gets the health of the entity
+ */
+int Entity::getHealth() const
+{
+    return health;
+}

@@ -12,6 +12,8 @@ using std::vector;
 
 #include "Entity.h"
 
+#include "Projectile.h"
+
 /*
  * Construct the manager with a render window
  */
@@ -55,9 +57,6 @@ void GameManager::addEnemy(Entity *enemy)
 {
     // Add the enemy
     enemies.push_back(enemy);
-
-    // Grab its hitbox
-    all_enemy_hitboxes.push_back(&enemy->body);
 }
 
 /*
@@ -65,6 +64,13 @@ void GameManager::addEnemy(Entity *enemy)
  */
 void GameManager::updateEnemies()
 {
+    // Grab all enemy hitboxes
+    vector<RectangleHitbox *> all_enemy_hitboxes;
+    for (Entity *enemy : enemies)
+    {
+        all_enemy_hitboxes.push_back(&enemy->body);
+    }
+
     // Update all the entities
     for (Entity *enemy : enemies)
     {
@@ -82,5 +88,71 @@ void GameManager::drawEnemies()
     for (Entity *enemy : enemies)
     {
         window->draw(enemy->body);
+    }
+}
+
+/*
+ * Deletes all enemies with health less than or equal to 0
+ */
+void GameManager::deleteDeadEnemies()
+{
+    // Iterate backwards to avoid skipping elements when deleting when looping over a list
+    const int size = (int)enemies.size();
+    int index;
+    for (int i = 0; i < size; i++)
+    {
+        index = size - i - 1;
+        if (enemies[index]->getHealth() <= 0)
+        {
+            delete enemies[index];
+            enemies.erase(enemies.begin() + index);
+        }
+    }
+}
+
+/*
+ * Adds a projectile to the list of handles projectiles
+ */
+void GameManager::addProjectile(Projectile *projectile)
+{
+    // Add the projectile
+    projectiles.push_back(projectile);
+}
+
+/*
+ * Updates all handled projectiles
+ */
+void GameManager::updateProjectiles()
+{
+    // For each projectile
+    for (Projectile *projectile : projectiles)
+    {
+        // Move it
+        projectile->move();
+
+        // Check for collisions
+        projectile->checkForCollisions(this);
+    }
+}
+
+void GameManager::drawProjectiles() {
+    for (Projectile *projectile : projectiles)
+    {
+        window->draw(projectile->body);
+    }
+}
+
+void GameManager::deleteCollidedProjectiles() {
+    // Iterate backwards to avoid skipping elements when deleting when looping over a list
+    const int size = (int)projectiles.size();
+    int index;
+    for (int i = 0; i < size; i++)
+    {
+        index = size - i - 1;
+        if (projectiles[index]->collided)
+        {
+            delete projectiles[index];
+            projectiles.erase(projectiles.begin() + index);
+        }
     }
 }

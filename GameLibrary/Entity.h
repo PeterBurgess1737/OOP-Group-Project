@@ -60,6 +60,9 @@ public:
 
     // Update function to be specified for more interesting behaviour
     virtual void update(GameManager *manager);
+
+    // Receive the entities health
+    int getHealth() const;
 };
 
 #endif // OOP_GROUP_PROJECT_ENTITY_H

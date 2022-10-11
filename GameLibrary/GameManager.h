@@ -7,10 +7,13 @@ using std::vector;
 #include <SFML/Graphics.hpp>
 using sf::RenderWindow;
 
+#include "Hitbox.h"
+
 #include "Entity.h"
 class Entity;
 
-#include "Hitbox.h"
+#include "Projectile.h"
+class Projectile;
 
 class GameManager
 {
@@ -20,9 +23,6 @@ public:
 
     // Constructor, window is necessary for the draw functions
     explicit GameManager(RenderWindow *window);
-
-    // Contains pointers to all the hitboxes in all entities that are handled
-    vector<RectangleHitbox *> all_enemy_hitboxes;
 
     // Player
     Entity *player;
@@ -41,6 +41,19 @@ public:
     void updateEnemies();
     // Draws all the enemies
     void drawEnemies();
+    // Deletes dead enemies
+    void deleteDeadEnemies();
+
+    // Projectiles
+    vector<Projectile *> projectiles;
+    // Add a projectile
+    void addProjectile(Projectile *projectile);
+    // Update all projectiles
+    void updateProjectiles();
+    // Draws all projectiles
+    void drawProjectiles();
+    // Deletes all collided projectiles
+    void deleteCollidedProjectiles();
 };
 
 #endif // OOP_GROUP_PROJECT_GAMEMANAGER_H

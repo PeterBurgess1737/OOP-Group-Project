@@ -59,6 +59,7 @@ entity1: entity1-compile entity1-link
 entity1-compile:
 	g++ -Isrc/include -c GameLibrary/Hitbox.cpp -o "object files/Hitbox.o"
 	g++ -Isrc/include -c GameLibrary/Entity.cpp -o "object files/Entity.o"
+	g++ -Isrc/include -c GameLibrary/Projectile.cpp -o "object files/Projectile.o"
 	g++ -Isrc/include -c GameLibrary/GameManager.cpp -o "object files/GameManager.o"
 	g++ -Isrc/include -c entity1-test.cpp -o "object files/entity1-test.o"
 
@@ -66,6 +67,7 @@ entity1-link:
 	g++ \
 	"object files/Hitbox.o" \
 	"object files/Entity.o" \
+	"object files/Projectile.o" \
 	"object files/GameManager.o" \
 	"object files/entity1-test.o" \
 	-o "executables/entity1-test.exe" \
@@ -93,6 +95,7 @@ hitbox1: hitbox1-compile hitbox1-link
 hitbox1-compile:
 	g++ -Isrc/include -c GameLibrary/Hitbox.cpp -o "object files/Hitbox.o"
 	g++ -Isrc/include -c GameLibrary/Entity.cpp -o "object files/Entity.o"
+	g++ -Isrc/include -c GameLibrary/Projectile.cpp -o "object files/Projectile.o"
 	g++ -Isrc/include -c GameLibrary/GameManager.cpp -o "object files/GameManager.o"
 	g++ -Isrc/include -c hitbox1-test.cpp -o "object files/hitbox1-test.o"
 
@@ -100,6 +103,7 @@ hitbox1-link:
 	g++ \
 	"object files/Hitbox.o" \
 	"object files/Entity.o" \
+	"object files/Projectile.o" \
 	"object files/GameManager.o" \
 	"object files/hitbox1-test.o" \
 	-o "executables/hitbox1-test.exe" \
@@ -153,6 +157,30 @@ hitbox2-mac:
 
 hitbox2-mac-run:
 	./"executables/hitbox2-test-mac"
+
+
+# A  test for projectiles
+projectile1: projectile1-compile projectile1-link
+
+projectile1-compile:
+	g++ -Isrc/include -c GameLibrary/Hitbox.cpp -o "object files/Hitbox.o"
+	g++ -Isrc/include -c GameLibrary/Entity.cpp -o "object files/Entity.o"
+	g++ -Isrc/include -c GameLibrary/Projectile.cpp -o "object files/Projectile.o"
+	g++ -Isrc/include -c GameLibrary/GameManager.cpp -o "object files/GameManager.o"
+	g++ -Isrc/include -c projectile1-test.cpp -o "object files/projectile1-test.o"
+
+projectile1-link:
+	g++ \
+	"object files/Hitbox.o" \
+	"object files/Entity.o" \
+	"object files/Projectile.o" \
+	"object files/GameManager.o" \
+	"object files/projectile1-test.o" \
+	-o "executables/projectile1-test.exe" \
+	-Lsrc/lib -lsfml-graphics -lsfml-window -lsfml-system
+
+projectile1-run:
+	./"executables/projectile1-test.exe"
 
 
 # Simple main file for testing if sfml works

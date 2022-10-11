@@ -109,12 +109,11 @@ int main()
         // Moving
         manager.updateEnemies();
 
-        // Drawing stuff
+        // Drawing entities
         window.clear();
 
         manager.drawEnemies();
 
-        // WOO
         window.display();
     }
 

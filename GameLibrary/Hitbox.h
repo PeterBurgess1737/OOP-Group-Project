@@ -21,14 +21,14 @@ public:
     void setTop(float value);
     void setBottom(float value);
 
-    bool collidesWith(const RectangleHitbox &rectangle);
+    bool collidesWith(const RectangleHitbox &rectangle) const;
 };
 
 class CircleHitbox: public CircleShape
 {
 public:
 
-    bool collidesWith(const RectangleHitbox &rectangle);
+    bool collidesWith(const RectangleHitbox &rectangle) const;
 
 };
 
