@@ -30,3 +30,7 @@ void Projectile::checkForCollisions(GameManager *manager) {
         }
     }
 }
+
+void Projectile::draw(RenderWindow *window) {
+    window->draw(body);
+}

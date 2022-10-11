@@ -83,7 +83,7 @@ void GameManager::updateEnemies()
 /*
  * Draws all handled enemy entities to the handled window
  */
-void GameManager::drawEnemies()
+void GameManager::drawEnemies() const
 {
     for (Entity *enemy : enemies)
     {
@@ -135,13 +135,20 @@ void GameManager::updateProjectiles()
     }
 }
 
-void GameManager::drawProjectiles() {
+/*
+ *
+ */
+void GameManager::drawProjectiles() const
+{
     for (Projectile *projectile : projectiles)
     {
-        window->draw(projectile->body);
+        projectile->draw(window);
     }
 }
 
+/*
+ *
+ */
 void GameManager::deleteCollidedProjectiles() {
     // Iterate backwards to avoid skipping elements when deleting when looping over a list
     const int size = (int)projectiles.size();

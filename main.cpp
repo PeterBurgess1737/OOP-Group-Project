@@ -13,6 +13,8 @@ using sf::RenderWindow;
 using sf::CircleShape;
 using sf::RectangleShape;
 using sf::Color;
+using sf::Image;
+using sf::Texture;
 
 #include <SFML/System.hpp>
 using sf::Vector2f;
@@ -37,9 +39,8 @@ public:
 
 Player::Player()
 {
-    this->body.setSize(Vector2f (30.f, 30.f));
-    this->body.setPosition(625, 345);
-    this->body.setFillColor(Color::Cyan);
+    this->body.setSize(Vector2f (32.f, 34.f));
+    this->body.setPosition(628, 343);
 }
 
 void Player::update(GameManager *manager)
@@ -61,18 +62,33 @@ void Player::fire(GameManager *manager, Vector2i mouse_pos)
         float magnitude = sqrt(direction_to_mouse.x * direction_to_mouse.x + direction_to_mouse.y * direction_to_mouse.y);
         direction_to_mouse /= magnitude;
         direction_to_mouse *= 3.f; // Bullet speed
-        manager->addProjectile(
-                new Projectile(
-                        getCenter(),
-                        3.f,
-                        direction_to_mouse,
-                        1,
-                        true
-                        )
+        auto *temp = new Projectile(
+                getCenter(),
+                3.f,
+                direction_to_mouse,
+                1,
+                true
                 );
+        temp->body.setFillColor(Color(235, 179, 12));
+        manager->addProjectile(temp);
 
         bullet_delay = 3;
     }
+}
+
+
+class PlayerProjectile: public Projectile
+{
+    PlayerProjectile(Vector2f position, float radius, Vector2f velocity, int damage, bool player_fired);
+
+    void draw(RenderWindow *window);
+};
+
+PlayerProjectile::PlayerProjectile(Vector2f position, float radius, Vector2f velocity, int damage, bool player_fired) : Projectile(position, radius, velocity, damage, player_fired) {}
+
+void PlayerProjectile::draw(sf::RenderWindow *window)
+{
+    window->draw(body);
 }
 
 
@@ -94,24 +110,21 @@ BasicEnemy::BasicEnemy()
     this->move_speed = 0.1f;
 
     // Size
-    this->body.setSize(Vector2f(27.f, 32.f));
-
-    // Colouring
-    this->body.setFillColor(Color::Red);
+    this->body.setSize(Vector2f(51.f, 60.f));
 
     // Random position spawning
     switch (rand() % 4) {
         case 0: // The top
-            this->body.setPosition((float)(rand() % 1280), -50.f);
+            this->body.setPosition((float)(rand() % 1280), -200.f);
             break;
         case 1: // The bottom
-            this->body.setPosition((float)(rand() % 1280), -770.f);
+            this->body.setPosition((float)(rand() % 1280), -920.f);
             break;
         case 2: // The left
-            this->body.setPosition(-50.f, (float)(rand() % 720));
+            this->body.setPosition(-200.f, (float)(rand() % 720));
             break;
         case 3: // The right
-            this->body.setPosition(1330.f, (float)(rand() % 720));
+            this->body.setPosition(1480.f, (float)(rand() % 720));
             break;
     }
 }
@@ -130,6 +143,10 @@ void BasicEnemy::update(GameManager *manager)
     Vector2f vec = getUnitVectorToPlayer(manager);
     vec *= move_speed;
     changeVelocity(vec);
+
+    // Swap if to the left
+    //if (vec.x > 0)
+    //    body.setScale(-1.f, 1.f);
 }
 
 
@@ -151,24 +168,21 @@ FastEnemy::FastEnemy()
     this->move_speed = 0.2f;
 
     // Size
-    this->body.setSize(Vector2f(42.f, 24.f));
-
-    // Colouring
-    this->body.setFillColor(Color::Yellow);
+    this->body.setSize(Vector2f(70.f, 40.f));
 
     // Random position spawning
     switch (rand() % 4) {
         case 0: // The top
-            this->body.setPosition((float)(rand() % 1280), -50.f);
+            this->body.setPosition((float)(rand() % 1280), -200.f);
             break;
         case 1: // The bottom
-            this->body.setPosition((float)(rand() % 1280), -770.f);
+            this->body.setPosition((float)(rand() % 1280), -920.f);
             break;
         case 2: // The left
-            this->body.setPosition(-50.f, (float)(rand() % 720));
+            this->body.setPosition(-200.f, (float)(rand() % 720));
             break;
         case 3: // The right
-            this->body.setPosition(1330.f, (float)(rand() % 720));
+            this->body.setPosition(1480.f, (float)(rand() % 720));
             break;
     }
 }
@@ -179,6 +193,10 @@ void FastEnemy::update(GameManager *manager)
     Vector2f vec = getUnitVectorToPlayer(manager);
     vec *= move_speed;
     changeVelocity(vec);
+
+    // Swap if to the left
+    //if (vec.x > 0)
+    //    body.setScale(-1.f, 1.f);
 }
 
 
@@ -198,24 +216,22 @@ BigEnemy::BigEnemy()
     this->move_speed = 0.01f;
 
     // Size
-    this->body.setSize(Vector2f(51.f, 53.f));
-
-    // Colouring
-    this->body.setFillColor(Color::Magenta);
+    this->body.setSize(Vector2f(131.f, 137.f));
+    // this->body.setOrigin(-82.f/2.f, 0);
 
     // Random position spawning
     switch (rand() % 4) {
         case 0: // The top
-            this->body.setPosition((float)(rand() % 1280), -50.f);
+            this->body.setPosition((float)(rand() % 1280), -200.f);
             break;
         case 1: // The bottom
-            this->body.setPosition((float)(rand() % 1280), -770.f);
+            this->body.setPosition((float)(rand() % 1280), -920.f);
             break;
         case 2: // The left
-            this->body.setPosition(-50.f, (float)(rand() % 720));
+            this->body.setPosition(-200.f, (float)(rand() % 720));
             break;
         case 3: // The right
-            this->body.setPosition(1330.f, (float)(rand() % 720));
+            this->body.setPosition(1480.f, (float)(rand() % 720));
             break;
     }
 }
@@ -226,6 +242,10 @@ void BigEnemy::update(GameManager *manager)
     Vector2f vec = getUnitVectorToPlayer(manager);
     vec *= move_speed;
     changeVelocity(vec);
+
+    // Swap if to the left
+    //if (vec.x > 0)
+    //    body.setScale(-1.f, 1.f);
 }
 
 
@@ -241,6 +261,16 @@ int main()
     // Reducing the framerate to 60fps
     window.setFramerateLimit(60);
 
+    // Loading and creating textures
+    Texture player_texture;
+    player_texture.loadFromFile("images/Not-Mooncake.png");
+    Texture basic_enemy_texture;
+    basic_enemy_texture.loadFromFile("images/Chonk-Child.png");
+    Texture fast_enemy_texture;
+    fast_enemy_texture.loadFromFile("images/Smol-Child.png");
+    Texture big_enemy_texture;
+    big_enemy_texture.loadFromFile("images/Mega-Chonk.png");
+
     // Where the event being handled is stored
     sf::Event event;
 
@@ -249,25 +279,26 @@ int main()
 
     // The player
     Player player;
+    player.body.setTexture(&player_texture);
     manager.setPlayer(&player);
 
     // Frame counting
-    int frame_counter = 0;
+    int frame_counter = -1;
 
     // Difficulty, increases spawn rate, increases every 7 seconds
     int difficulty = 0;
 
     int difficulty_increase = 420; // 420
 
-    int basic_enemy_spawn_delay = 120;
+    int basic_enemy_spawn_delay = 120; // 120
     int basic_enemy_max_spawn_threshold = 40; // Enemy 3/2 times a second means 7.5 damage/s
 
-    int fast_enemy_difficulty = 5;
-    int fast_enemy_spawn_delay = 150;
+    int fast_enemy_difficulty = 5; // 5
+    int fast_enemy_spawn_delay = 150; // 150
     int fast_enemy_max_spawn_threshold = 30; // Enemy 2 times a second means 4 damage/s
 
-    int big_enemy_difficulty = 10;
-    int big_enemy_spawn_delay = 300;
+    int big_enemy_difficulty = 10; // 10
+    int big_enemy_spawn_delay = 300; // 300
     int big_enemy_max_spawn_threshold = 60; // Enemy 1 times a second means 40 damage/s
 
     // Game loop
@@ -291,8 +322,6 @@ int main()
                 break;
             }
         }
-
-        cout << "========== Frame ==========" << endl;
 
         // Frame counting
         frame_counter++;
@@ -321,19 +350,25 @@ int main()
         // Spawning basic enemy
         if (frame_counter % basic_enemy_spawn_delay == 0)
         {
-            manager.addEnemy(new BasicEnemy());
+            auto *temp = new BasicEnemy();
+            temp->body.setTexture(&basic_enemy_texture, true);
+            manager.addEnemy(temp);
         }
 
         // Spawning fast enemy
         if (frame_counter % fast_enemy_spawn_delay == 0)
         {
-            manager.addEnemy(new FastEnemy());
+            auto *temp = new FastEnemy();
+            temp->body.setTexture(&fast_enemy_texture);
+            manager.addEnemy(temp);
         }
 
         // Spawning big enemy
         if (frame_counter % big_enemy_spawn_delay == 0)
         {
-            manager.addEnemy(new BigEnemy());
+            auto *temp = new BigEnemy();
+            temp->body.setTexture(&big_enemy_texture);
+            manager.addEnemy(temp);
         }
 
         // Bullet spawning
@@ -346,7 +381,7 @@ int main()
         manager.updatePlayer();
 
         // Drawing stuff
-        window.clear();
+        window.clear(Color(37, 37, 37));
 
         manager.drawPlayer();
         manager.drawEnemies();

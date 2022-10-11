@@ -46,7 +46,7 @@ public:
     // Update all enemies
     void updateEnemies();
     // Draws all the enemies
-    void drawEnemies();
+    void drawEnemies() const;
     // Deletes dead enemies
     void deleteDeadEnemies();
 
@@ -57,7 +57,7 @@ public:
     // Update all projectiles
     void updateProjectiles();
     // Draws all projectiles
-    void drawProjectiles();
+    void drawProjectiles() const;
     // Deletes all collided projectiles
     void deleteCollidedProjectiles();
 };

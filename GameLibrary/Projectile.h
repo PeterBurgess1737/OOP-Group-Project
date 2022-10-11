@@ -42,8 +42,8 @@ public:
     // Checks for collisions against necessary entities and damages them if there is a collision
     void checkForCollisions(GameManager *manager);
 
-    // temp
-    // ~Projectile() = default;
+    // Draws the projectile to the given window, can be rewritten for more interesting drawings
+    virtual void draw(RenderWindow *window);
 };
 
 
