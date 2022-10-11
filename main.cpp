@@ -311,7 +311,7 @@ int main()
                     fast_enemy_spawn_delay--;
             }
 
-            if (difficulty > big_enemy_max_spawn_threshold)
+            if (difficulty > big_enemy_difficulty)
             {
                 if (big_enemy_spawn_delay > big_enemy_max_spawn_threshold)
                     big_enemy_spawn_delay--;
