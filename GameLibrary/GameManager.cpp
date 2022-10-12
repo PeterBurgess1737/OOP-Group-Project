@@ -39,6 +39,9 @@ void GameManager::setPlayer(Entity *new_player)
  */
 void GameManager::updatePlayer()
 {
+    if (paused)
+        return;
+
     player->update(this);
 }
 
@@ -48,6 +51,25 @@ void GameManager::updatePlayer()
 void GameManager::drawPlayer() const
 {
     window->draw(player->body);
+}
+
+/*
+ * Checks if an enemy has touched the player
+ * If so then true is returned and the game manager pauses
+ */
+bool GameManager::checkLoseCondition()
+{
+    for (Entity *enemy : enemies)
+    {
+        if (player->body.collidesWith(enemy->body))
+        {
+            paused = true;
+            loss = true;
+            break;
+        }
+    }
+
+    return loss;
 }
 
 /*
@@ -64,6 +86,9 @@ void GameManager::addEnemy(Entity *enemy)
  */
 void GameManager::updateEnemies()
 {
+    if (paused)
+        return;
+
     // Grab all enemy hitboxes
     vector<RectangleHitbox *> all_enemy_hitboxes;
     for (Entity *enemy : enemies)
@@ -124,6 +149,9 @@ void GameManager::addProjectile(Projectile *projectile)
  */
 void GameManager::updateProjectiles()
 {
+    if (paused)
+        return;
+
     // For each projectile
     for (Projectile *projectile : projectiles)
     {

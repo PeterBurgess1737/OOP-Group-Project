@@ -38,6 +38,8 @@ public:
     void updatePlayer();
     // Draws the player to the window given in construction
     void drawPlayer() const;
+    // Checks if an enemy touches the player, returns true if this happens
+    bool checkLoseCondition();
 
     // Enemies
     vector<Entity *> enemies;

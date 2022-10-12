@@ -327,6 +327,9 @@ int main()
     int big_enemy_spawn_delay = 300;        // 300
     int big_enemy_max_spawn_threshold = 60; // Enemy 1 times a second means 40 damage/s
 
+    // The frame the lose condition was reached, start at -1 so we can see if something wrong happens
+    int lose_frame = -1;
+
     // Game loop
     while (window.isOpen())
     {
@@ -406,6 +409,10 @@ int main()
         manager.updateProjectiles();
         manager.updatePlayer();
 
+        // Lose condidtion
+        if (manager.checkLoseCondition() && lose_frame == -1)
+            lose_frame = frame_counter;
+
         // Drawing stuff
         window.clear(Color(37, 37, 37));
 
@@ -419,7 +426,17 @@ int main()
 
         // WOO
         window.display();
+
+        // If the game is lost
+        if (manager.loss)
+        {
+            // After 60 frames from lose frame, exit loop
+            if (frame_counter > lose_frame + 60)
+                break;
+        }
     }
+
+    cout << "You lasted " << round((float)lose_frame / 60) << " seconds" << endl;
 
     cout << "\n=============== End ===============\n"
          << endl;
