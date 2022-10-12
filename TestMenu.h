@@ -10,9 +10,10 @@ class TestMenu {
   // int high_score;
   char key;
   int high_score; 
+  int current_score; 
 
  public:
-  // char choice();
+  char choice();
   void choice(int _key);
   void show_main_menu();
 
@@ -20,5 +21,7 @@ class TestMenu {
   // displaying that the player has died and their time spent in the game. The
   // user will be asked if they want to play the game again.
   void draw_end_menu(int current_score);
+
+
 };
 #endif
