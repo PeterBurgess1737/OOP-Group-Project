@@ -38,7 +38,7 @@ bool Entity::takeDamage(int damage)
  * Moves the entity by its current velocity
  * Performs collision solving
  */
-void Entity::move(const vector<RectangleHitbox *>& hitboxes)
+void Entity::move(const vector<RectangleHitbox *> &hitboxes)
 {
     // If there is x-axis movement
     if (velocity.x != 0)

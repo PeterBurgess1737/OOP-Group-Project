@@ -1,6 +1,7 @@
 #include "Projectile.h"
 
-Projectile::Projectile(Vector2f position, float radius, Vector2f velocity, int damage, bool player_fired, int lifespan) {
+Projectile::Projectile(Vector2f position, float radius, Vector2f velocity, int damage, bool player_fired, int lifespan)
+{
     body.setPosition(position);
     body.setRadius(radius);
     this->velocity = velocity;
@@ -9,15 +10,17 @@ Projectile::Projectile(Vector2f position, float radius, Vector2f velocity, int d
     this->lifespan = lifespan;
 }
 
-void Projectile::move() {
+void Projectile::move()
+{
     body.move(velocity);
 }
 
-void Projectile::update(GameManager *manager) {
-
+void Projectile::update(GameManager *manager)
+{
 }
 
-void Projectile::checkForCollisions(GameManager *manager) {
+void Projectile::checkForCollisions(GameManager *manager)
+{
     if (player_fired)
     {
         for (Entity *enemy : manager->enemies)
@@ -32,7 +35,8 @@ void Projectile::checkForCollisions(GameManager *manager) {
     }
 }
 
-void Projectile::draw(RenderWindow *window) {
+void Projectile::draw(RenderWindow *window)
+{
     window->draw(body);
 }
 

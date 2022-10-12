@@ -12,7 +12,8 @@ using std::vector;
 #include "GameManager.h"
 class GameManager;
 
-class Projectile {
+class Projectile
+{
 private:
     Vector2f velocity;
 
@@ -52,5 +53,4 @@ public:
     void reduceLifespan();
 };
 
-
-#endif //OOP_GROUP_PROJECT_PROJECTILE_H
+#endif // OOP_GROUP_PROJECT_PROJECTILE_H

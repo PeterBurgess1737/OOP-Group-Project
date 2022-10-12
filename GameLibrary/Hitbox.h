@@ -5,10 +5,10 @@
 using sf::Vector2f;
 
 #include <SFML/Graphics.hpp>
-using sf::RectangleShape;
 using sf::CircleShape;
+using sf::RectangleShape;
 
-class RectangleHitbox: public RectangleShape
+class RectangleHitbox : public RectangleShape
 {
 public:
     float getLeft() const;
@@ -24,14 +24,12 @@ public:
     bool collidesWith(const RectangleHitbox &rectangle) const;
 };
 
-class CircleHitbox: public CircleShape
+class CircleHitbox : public CircleShape
 {
 public:
-
     Vector2f getCenter();
 
     bool collidesWith(const RectangleHitbox &rectangle) const;
-
 };
 
 #endif // OOP_GROUP_PROJECT_HITBOX_H

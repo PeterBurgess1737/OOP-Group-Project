@@ -9,4 +9,4 @@
 
 #include "GameManager.h"
 
-#endif //OOP_GROUP_PROJECT_GAMELIBRARY_H
+#endif // OOP_GROUP_PROJECT_GAMELIBRARY_H

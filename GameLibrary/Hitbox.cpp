@@ -29,27 +29,19 @@ float RectangleHitbox::getBottom() const
 
 void RectangleHitbox::setLeft(float value)
 {
-    setPosition(
-        Vector2f(value, getPosition().y)
-    );
+    setPosition(Vector2f(value, getPosition().y));
 }
 void RectangleHitbox::setRight(float value)
 {
-    setPosition(
-        Vector2f(value - getSize().x, getPosition().y)
-    );
+    setPosition(Vector2f(value - getSize().x, getPosition().y));
 }
 void RectangleHitbox::setTop(float value)
 {
-    setPosition(
-        Vector2f(getPosition().x, value)
-    );
+    setPosition(Vector2f(getPosition().x, value));
 }
 void RectangleHitbox::setBottom(float value)
 {
-    setPosition(
-        Vector2f(getPosition().x, value - getSize().y)
-    );
+    setPosition(Vector2f(getPosition().x, value - getSize().y));
 }
 
 bool RectangleHitbox::collidesWith(const RectangleHitbox &rectangle) const
@@ -59,7 +51,7 @@ bool RectangleHitbox::collidesWith(const RectangleHitbox &rectangle) const
             if (getTop() < rectangle.getBottom())
                 if (getBottom() > rectangle.getTop())
                     return true;
-    
+
     return false;
 }
 
@@ -91,8 +83,8 @@ bool CircleHitbox::collidesWith(const RectangleHitbox &rectangle) const
     // If the center of the circle is within the bounds of the sides of the rectangle
     // Then consider the circle a rectangle
     if (
-            rect_pos.x <= circle_center.x && circle_center.x <= rect_pos.x + rect_size.x ||
-            rect_pos.y <= circle_center.y && circle_center.y <= rect_pos.y + rect_size.y)
+        rect_pos.x <= circle_center.x && circle_center.x <= rect_pos.x + rect_size.x ||
+        rect_pos.y <= circle_center.y && circle_center.y <= rect_pos.y + rect_size.y)
     {
         const float circle_diameter = circle_radius * 2;
         RectangleHitbox binding_rectangle;
@@ -119,18 +111,18 @@ bool CircleHitbox::collidesWith(const RectangleHitbox &rectangle) const
             y_diff = circle_center.x - rect_pos.y - rect_size.y;
         }
     else                  // If the circle is to the right of the rectangle
-    if (circle_above) // If the circle is above the rectangle
-    {
-        // Get the displacement to the rectangles top right corner
-        x_diff = circle_center.x - rect_pos.x - rect_size.x;
-        y_diff = circle_center.y - rect_pos.y;
-    }
-    else // If the circle is below the rectangle
-    {
-        // Get the displacement to the rectangles bottom right corner
-        x_diff = circle_center.x - rect_pos.x - rect_size.x;
-        y_diff = circle_center.y - rect_pos.y - rect_size.y;
-    }
+        if (circle_above) // If the circle is above the rectangle
+        {
+            // Get the displacement to the rectangles top right corner
+            x_diff = circle_center.x - rect_pos.x - rect_size.x;
+            y_diff = circle_center.y - rect_pos.y;
+        }
+        else // If the circle is below the rectangle
+        {
+            // Get the displacement to the rectangles bottom right corner
+            x_diff = circle_center.x - rect_pos.x - rect_size.x;
+            y_diff = circle_center.y - rect_pos.y - rect_size.y;
+        }
 
     // Find the distance and check against radius
     distance = sqrt(x_diff * x_diff + y_diff * y_diff);

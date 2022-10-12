@@ -9,11 +9,11 @@ using std::sqrt;
 using std::rand;
 
 #include <SFML/Graphics.hpp>
-using sf::RenderWindow;
 using sf::CircleShape;
-using sf::RectangleShape;
 using sf::Color;
 using sf::Image;
+using sf::RectangleShape;
+using sf::RenderWindow;
 using sf::Texture;
 
 #include <SFML/System.hpp>
@@ -24,8 +24,7 @@ using sf::Vector2i;
 
 #include "GameLibrary/GameLibrary.h"
 
-
-class PlayerProjectile: public Projectile
+class PlayerProjectile : public Projectile
 {
 public:
     PlayerProjectile(Vector2f position, Vector2f velocity);
@@ -44,7 +43,7 @@ PlayerProjectile::PlayerProjectile(Vector2f position, Vector2f velocity) : Proje
 void PlayerProjectile::update(GameManager *manager)
 {
     timer++;
-    
+
     float temp = (float)(timer % 50);
 
     if (temp < 25.f)
@@ -72,7 +71,6 @@ void PlayerProjectile::draw(sf::RenderWindow *window)
     }
 }
 
-
 class Player : public Entity
 {
 public:
@@ -88,7 +86,7 @@ public:
 
 Player::Player()
 {
-    this->body.setSize(Vector2f (32.f, 34.f));
+    this->body.setSize(Vector2f(32.f, 34.f));
     this->body.setPosition(628, 343);
 }
 
@@ -105,23 +103,20 @@ void Player::fire(GameManager *manager, Vector2i mouse_pos)
     if (current_bullet_delay <= 0)
     {
         Vector2f direction_to_mouse = Vector2f(
-                (float)mouse_pos.x - getCenter().x,
-                (float)mouse_pos.y - getCenter().y
-                );
+            (float)mouse_pos.x - getCenter().x,
+            (float)mouse_pos.y - getCenter().y);
         float magnitude = sqrt(direction_to_mouse.x * direction_to_mouse.x + direction_to_mouse.y * direction_to_mouse.y);
         direction_to_mouse /= magnitude;
         direction_to_mouse *= 3.f; // Bullet speed
         auto *temp = new PlayerProjectile(
-                getCenter(),
-                direction_to_mouse
-                );
+            getCenter(),
+            direction_to_mouse);
         temp->body.setFillColor(Color(235, 179, 12));
         manager->addProjectile(temp);
 
         current_bullet_delay = bullet_delay;
     }
 }
-
 
 class BasicEnemy : public Entity
 {
@@ -144,19 +139,20 @@ BasicEnemy::BasicEnemy()
     this->body.setSize(Vector2f(51.f, 60.f));
 
     // Random position spawning
-    switch (rand() % 4) {
-        case 0: // The top
-            this->body.setPosition((float)(rand() % 1280), -200.f);
-            break;
-        case 1: // The bottom
-            this->body.setPosition((float)(rand() % 1280), -920.f);
-            break;
-        case 2: // The left
-            this->body.setPosition(-200.f, (float)(rand() % 720));
-            break;
-        case 3: // The right
-            this->body.setPosition(1480.f, (float)(rand() % 720));
-            break;
+    switch (rand() % 4)
+    {
+    case 0: // The top
+        this->body.setPosition((float)(rand() % 1280), -200.f);
+        break;
+    case 1: // The bottom
+        this->body.setPosition((float)(rand() % 1280), -920.f);
+        break;
+    case 2: // The left
+        this->body.setPosition(-200.f, (float)(rand() % 720));
+        break;
+    case 3: // The right
+        this->body.setPosition(1480.f, (float)(rand() % 720));
+        break;
     }
 }
 
@@ -176,10 +172,9 @@ void BasicEnemy::update(GameManager *manager)
     changeVelocity(vec);
 
     // Swap if to the left
-    //if (vec.x > 0)
+    // if (vec.x > 0)
     //    body.setScale(-1.f, 1.f);
 }
-
 
 class FastEnemy : public BasicEnemy
 {
@@ -202,19 +197,20 @@ FastEnemy::FastEnemy()
     this->body.setSize(Vector2f(70.f, 40.f));
 
     // Random position spawning
-    switch (rand() % 4) {
-        case 0: // The top
-            this->body.setPosition((float)(rand() % 1280), -200.f);
-            break;
-        case 1: // The bottom
-            this->body.setPosition((float)(rand() % 1280), -920.f);
-            break;
-        case 2: // The left
-            this->body.setPosition(-200.f, (float)(rand() % 720));
-            break;
-        case 3: // The right
-            this->body.setPosition(1480.f, (float)(rand() % 720));
-            break;
+    switch (rand() % 4)
+    {
+    case 0: // The top
+        this->body.setPosition((float)(rand() % 1280), -200.f);
+        break;
+    case 1: // The bottom
+        this->body.setPosition((float)(rand() % 1280), -920.f);
+        break;
+    case 2: // The left
+        this->body.setPosition(-200.f, (float)(rand() % 720));
+        break;
+    case 3: // The right
+        this->body.setPosition(1480.f, (float)(rand() % 720));
+        break;
     }
 }
 
@@ -226,12 +222,11 @@ void FastEnemy::update(GameManager *manager)
     changeVelocity(vec);
 
     // Swap if to the left
-    //if (vec.x > 0)
+    // if (vec.x > 0)
     //    body.setScale(-1.f, 1.f);
 }
 
-
-class BigEnemy: public BasicEnemy
+class BigEnemy : public BasicEnemy
 {
 public:
     BigEnemy();
@@ -251,19 +246,20 @@ BigEnemy::BigEnemy()
     // this->body.setOrigin(-82.f/2.f, 0);
 
     // Random position spawning
-    switch (rand() % 4) {
-        case 0: // The top
-            this->body.setPosition((float)(rand() % 1280), -200.f);
-            break;
-        case 1: // The bottom
-            this->body.setPosition((float)(rand() % 1280), -920.f);
-            break;
-        case 2: // The left
-            this->body.setPosition(-200.f, (float)(rand() % 720));
-            break;
-        case 3: // The right
-            this->body.setPosition(1480.f, (float)(rand() % 720));
-            break;
+    switch (rand() % 4)
+    {
+    case 0: // The top
+        this->body.setPosition((float)(rand() % 1280), -200.f);
+        break;
+    case 1: // The bottom
+        this->body.setPosition((float)(rand() % 1280), -920.f);
+        break;
+    case 2: // The left
+        this->body.setPosition(-200.f, (float)(rand() % 720));
+        break;
+    case 3: // The right
+        this->body.setPosition(1480.f, (float)(rand() % 720));
+        break;
     }
 }
 
@@ -275,10 +271,9 @@ void BigEnemy::update(GameManager *manager)
     changeVelocity(vec);
 
     // Swap if to the left
-    //if (vec.x > 0)
+    // if (vec.x > 0)
     //    body.setScale(-1.f, 1.f);
 }
-
 
 int main()
 {
@@ -321,15 +316,15 @@ int main()
 
     int difficulty_increase = 420; // 420
 
-    int basic_enemy_spawn_delay = 120; // 120
+    int basic_enemy_spawn_delay = 120;        // 120
     int basic_enemy_max_spawn_threshold = 40; // Enemy 3/2 times a second means 7.5 damage/s
 
-    int fast_enemy_difficulty = 5; // 5
-    int fast_enemy_spawn_delay = 150; // 150
+    int fast_enemy_difficulty = 5;           // 5
+    int fast_enemy_spawn_delay = 150;        // 150
     int fast_enemy_max_spawn_threshold = 30; // Enemy 2 times a second means 4 damage/s
 
-    int big_enemy_difficulty = 10; // 10
-    int big_enemy_spawn_delay = 300; // 300
+    int big_enemy_difficulty = 10;          // 10
+    int big_enemy_spawn_delay = 300;        // 300
     int big_enemy_max_spawn_threshold = 60; // Enemy 1 times a second means 40 damage/s
 
     // Game loop
