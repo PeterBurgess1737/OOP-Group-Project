@@ -78,7 +78,7 @@ int main()
         // Adding in projectiles
         if (!(frame_number % 6))
         {
-            Projectile *temp = new Projectile(Vector2f(100.f, 305.f), 5.f, Vector2f(1.f, 0), 1, true);
+            Projectile *temp = new Projectile(Vector2f(100.f, 305.f), 5.f, Vector2f(1.f, 0), 1, true, 1000);
 
             manager.addProjectile(temp);
         }
@@ -88,7 +88,7 @@ int main()
         manager.updateProjectiles();
 
         manager.deleteDeadEnemies();
-        manager.deleteCollidedProjectiles();
+        manager.deleteNecessaryProjectiles();
 
         // Drawing stuff
         window.clear();

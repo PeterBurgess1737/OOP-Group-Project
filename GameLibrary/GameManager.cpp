@@ -127,6 +127,9 @@ void GameManager::updateProjectiles()
     // For each projectile
     for (Projectile *projectile : projectiles)
     {
+        // Update it
+        projectile->update(this);
+
         // Move it
         projectile->move();
 
@@ -149,14 +152,15 @@ void GameManager::drawProjectiles() const
 /*
  *
  */
-void GameManager::deleteCollidedProjectiles() {
+void GameManager::deleteNecessaryProjectiles()
+{
     // Iterate backwards to avoid skipping elements when deleting when looping over a list
     const int size = (int)projectiles.size();
     int index;
     for (int i = 0; i < size; i++)
     {
         index = size - i - 1;
-        if (projectiles[index]->collided)
+        if (projectiles[index]->to_delete)
         {
             delete projectiles[index];
             projectiles.erase(projectiles.begin() + index);

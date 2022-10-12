@@ -28,23 +28,42 @@ using sf::Vector2i;
 class PlayerProjectile: public Projectile
 {
 public:
-    PlayerProjectile(Vector2f position, float radius, Vector2f velocity, int damage, bool player_fired);
+    PlayerProjectile(Vector2f position, Vector2f velocity);
+
+    void update(GameManager *manager) override;
 
     void draw(RenderWindow *window) override;
+
+    int timer = rand() % 50;
+    float glow_scale_default = 1.5f;
+    float glow_scale = 1.5f;
 };
 
-PlayerProjectile::PlayerProjectile(Vector2f position, float radius, Vector2f velocity, int damage, bool player_fired) : Projectile(position, radius, velocity, damage, player_fired) {}
+PlayerProjectile::PlayerProjectile(Vector2f position, Vector2f velocity) : Projectile(position, 3.f, velocity, 1, true, 120) {}
+
+void PlayerProjectile::update(GameManager *manager)
+{
+    timer++;
+    
+    float temp = (float)(timer % 50);
+
+    if (temp < 25.f)
+        glow_scale = glow_scale_default + (temp / 25);
+    else
+        glow_scale = glow_scale_default + ((50 - temp) / 25);
+}
 
 void PlayerProjectile::draw(sf::RenderWindow *window)
 {
     window->draw(body);
 
     CircleShape temp_circle(body.getRadius());
-    temp_circle.setPosition(body.getPosition());
+    temp_circle.setPosition(body.getCenter());
 
-    for (int i = 0; i < 3; i++) {
-        temp_circle.setOrigin(temp_circle.getRadius() / 2, temp_circle.getRadius() / 2);
-        temp_circle.setScale(1.5f * (float)(i + 1), 1.5f * (float)(i + 1));
+    for (int i = 0; i < 3; i++)
+    {
+        temp_circle.setOrigin(temp_circle.getRadius(), temp_circle.getRadius());
+        temp_circle.setScale(glow_scale * (float)(i + 1), glow_scale * (float)(i + 1));
 
         Color temp_colour = body.getFillColor();
         temp_colour.a = (uint8_t)(255 / (i + 3));
@@ -63,7 +82,8 @@ public:
 
     void fire(GameManager *manager, Vector2i mouse_pos);
 
-    int bullet_delay = 0;
+    int bullet_delay = 3;
+    int current_bullet_delay = 0;
 };
 
 Player::Player()
@@ -74,15 +94,15 @@ Player::Player()
 
 void Player::update(GameManager *manager)
 {
-    if (bullet_delay > 0)
+    if (current_bullet_delay > 0)
     {
-        bullet_delay--;
+        current_bullet_delay--;
     }
 }
 
 void Player::fire(GameManager *manager, Vector2i mouse_pos)
 {
-    if (bullet_delay == 0)
+    if (current_bullet_delay <= 0)
     {
         Vector2f direction_to_mouse = Vector2f(
                 (float)mouse_pos.x - getCenter().x,
@@ -93,15 +113,12 @@ void Player::fire(GameManager *manager, Vector2i mouse_pos)
         direction_to_mouse *= 3.f; // Bullet speed
         auto *temp = new PlayerProjectile(
                 getCenter(),
-                3.f,
-                direction_to_mouse,
-                1,
-                true
+                direction_to_mouse
                 );
         temp->body.setFillColor(Color(235, 179, 12));
         manager->addProjectile(temp);
 
-        bullet_delay = 3;
+        current_bullet_delay = bullet_delay;
     }
 }
 
@@ -403,7 +420,7 @@ int main()
 
         // Deleting necessary stuff
         manager.deleteDeadEnemies();
-        manager.deleteCollidedProjectiles();
+        manager.deleteNecessaryProjectiles();
 
         // WOO
         window.display();

@@ -6,6 +6,10 @@ using sf::Vector2f;
 #include <cmath>
 using std::sqrt;
 
+/*
+ * Rectangle Hitbox
+ */
+
 float RectangleHitbox::getLeft() const
 {
     return getPosition().x;
@@ -57,6 +61,20 @@ bool RectangleHitbox::collidesWith(const RectangleHitbox &rectangle) const
                     return true;
     
     return false;
+}
+
+/*
+ * Circle Hitbox
+ */
+
+Vector2f CircleHitbox::getCenter()
+{
+    Vector2f temp = getPosition();
+    const float radius = getRadius();
+    temp.x += radius;
+    temp.y += radius;
+
+    return temp;
 }
 
 bool CircleHitbox::collidesWith(const RectangleHitbox &rectangle) const
