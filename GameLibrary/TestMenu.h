@@ -1,30 +1,28 @@
-#ifndef OOP_GROUP_PROJECT_TESTMENU_H
-#define OOP_GROUP_PROJECT_TESTMENU_H
-
+#ifndef TESTMENU_H
+#define TESTMENU_H
 
 #include <iostream>
 
 using namespace std;
 
-class TextMenu{
-protected:
-    char choice;
-    int high_score;
-    int current_score;
+class TestMenu {
+ protected:
+  // int high_score;
+  char key;
+  int high_score; 
+  int current_score; 
+  char key_pressed;
 
-public:
+ public:
+  char choice();
+  void choice(int _key);
+  void show_main_menu();
 
-    void draw_main_menu(int high_score);
+  // Function that when you die, closes the game and displays a message
+  // displaying that the player has died and their time spent in the game. The
+  // user will be asked if they want to play the game again.
+  void draw_end_menu(int current_score);
 
-    // when you die
-    // close the game
-    // You die, high score is " "
-    // do you wish to play again? yes/no
-
-    void draw_end_menu(int current_score);
-
-    // press play
-    // quit the game
 
 };
-#endif //OOP_GROUP_PROJECT_TESTMENU_H
+#endif
