@@ -43,11 +43,11 @@ run:
 
 mac:
 	g++ \
-	Hitbox.cpp" \
-	Entity.cpp" \
-	Projectile.cpp" \
-	GameManager.cpp" \
-	main.cpp" \
+	GameLibrary/Hitbox.cpp \
+	GameLibrary/Entity.cpp \
+	GameLibrary/Projectile.cpp \
+	GameLibrary/GameManager.cpp \
+	main.cpp \
 	-o "executables/main-mac" \
 	-lsfml-graphics -lsfml-window -lsfml-system
 
