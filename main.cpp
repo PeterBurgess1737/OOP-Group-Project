@@ -1,3 +1,4 @@
+#include <cmath>
 #include <iostream>
 using std::cout;
 using std::endl;
@@ -44,7 +45,7 @@ void PlayerProjectile::update(GameManager *manager)
 {
     timer++;
 
-    float temp = (float)(timer % 50);
+    auto temp = (float)(timer % 50);
 
     if (temp < 25.f)
         glow_scale = glow_scale_default + (temp / 25);
@@ -339,11 +340,13 @@ int main()
             switch (event.type)
             {
             case sf::Event::Closed: // Window closed
+                lose_frame = frame_counter;
                 window.close();
                 break;
 
             case sf::Event::KeyPressed: // Escape key pressed
                 if (event.key.code == sf::Keyboard::Escape)
+                    lose_frame = frame_counter;
                     window.close();
                 break;
 
@@ -409,7 +412,7 @@ int main()
         manager.updateProjectiles();
         manager.updatePlayer();
 
-        // Lose condidtion
+        // Lose condition
         if (manager.checkLoseCondition() && lose_frame == -1)
             lose_frame = frame_counter;
 
@@ -436,7 +439,7 @@ int main()
         }
     }
 
-    cout << "You lasted " << round((float)lose_frame / 60) << " seconds" << endl;
+    cout << "You lasted " << lose_frame / 60 << " seconds" << endl;
 
     cout << "\n=============== End ===============\n"
          << endl;

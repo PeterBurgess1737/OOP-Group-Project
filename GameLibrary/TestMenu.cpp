@@ -1,57 +1,71 @@
 #include "TestMenu.h"
+
 #include <iostream>
-#include <SFML/Graphics.hpp>
-#include <SFML/System.hpp>
-#include <SFML/Window.hpp>
 
 using namespace std;
 
-char TestMenu::choice() { return key; }
+/*
+    Greeting to user
+    Display high score to user
+    Display game options
+*/
+void TestMenu::draw_main_menu(int high_score) {
+    cout << "-------------- Hello! -----------------" << endl;
+    cout << "Your high score is: " << high_score << endl;
 
-void TestMenu::choice(int _key) { key = _key; }
-
-void TestMenu::show_main_menu() {
-  cout << "-------------- Hello! -----------------" << endl;
-  cout << "Your high score is: " << high_score << endl;
-
-  // Press 'P' to begin playing, or 'Q' to quit. 
-  cout << "Press the 'P' key to begin playing, or 'Q' to quit: " << endl;
-  // Keep reading in keys entered by the user 
-  choice(cin.get());
-  // Records the key pressed by the user 
-  key_pressed = getchar();
-
-  switch(key_pressed){
-      case 'P':
-      // Open the game window
-
-      case 'Q':
-      // Close the window
-
-      default:
-      // Remain on screen 
-
-  }
+    cout << "Press the 'P' key to begin playing" << endl;
+    cout << "Press the 'Q' key to quit" << endl;
+    cout << "Press the 'S' key to see previous game scores" << endl;
 }
 
-void TestMenu::draw_end_menu(int current_score){
+/*
+    Implementation of reading in a key entered by user
+    Convert keys entered by the user to lowercase
+*/
+
+string TestMenu::get_main_menu_choice() {
+    while (true) {
+        string temp;
+        cin >> temp;
+
+        if (temp == "p" || temp == "P") {
+            return "p";
+        } else if(temp == "q" || temp == "Q"){
+            return "q";
+        } else if(temp == "s" || temp == "S"){
+            return "s";
+        }
+        else {
+            cout << "Please enter a valid input, either 'P', 'Q', or 'S'" << endl;
+        }
+    }
+}
+
+/*
+    Display end menu key options
+    Ask user to enter specific keys to play again or quit
+*/
+void TestMenu::draw_end_menu(int current_score, int high_score) {
     cout << "------------ YOU DIED! ------------" << endl;
     cout << "Your score was: " << current_score << endl;
+    cout << "Your high score is: " << high_score << endl;
 
-    // Press 'M' to return to the main menu and 'Q' to quit. Use a switch statement. 
-      cout << "Press the 'M' key to return to the main menu, or 'Q' to quit" << endl;
-        choice(cin.get());
-        key_pressed = getchar();
+    cout << "Do you want to play another game?" << endl;
+    cout << "Press 'P' to play again" << endl;
+    cout << "Press any other key to quit" << endl;
+}
 
-  switch(key_pressed){
-      case 'M':
-      // Return to the main menu
+/*
+    Record the key pressed by the user
+*/
 
-      case 'Q':
-      // Close the window 
+string TestMenu::get_end_menu_choice() {
+    string temp;
+    cin >> temp;
 
-      default:
-      // Remain on screen 
-
-  }
+    if (temp == "p" || temp == "P") {
+        return "p";
+    } else {
+        return "Quit";
+    }
 }

@@ -22,6 +22,7 @@
 all: main-compile main-link
 
 main-compile:
+	g++ -Isrc/include -c GameLibrary/ScoreBoard.cpp -o "object files/ScoreBoard.o"
 	g++ -Isrc/include -c GameLibrary/Hitbox.cpp -o "object files/Hitbox.o"
 	g++ -Isrc/include -c GameLibrary/Entity.cpp -o "object files/Entity.o"
 	g++ -Isrc/include -c GameLibrary/Projectile.cpp -o "object files/Projectile.o"
@@ -30,6 +31,7 @@ main-compile:
 
 main-link:
 	g++ \
+	"object files/ScoreBoard.o" \
 	"object files/Hitbox.o" \
 	"object files/Entity.o" \
 	"object files/Projectile.o" \
@@ -183,6 +185,14 @@ projectile1-link:
 
 projectile1-run:
 	./"executables/projectile1-test.exe"
+
+
+# A test for the scoreboard
+scoreboard1:
+	g++ GameLibrary/ScoreBoard.cpp scoreboard1-test.cpp -o executables/scoreboard1-text.exe
+
+scoreboard1-run:
+	./executables/scoreboard1-text.exe
 
 
 # Simple main file for testing if sfml works
