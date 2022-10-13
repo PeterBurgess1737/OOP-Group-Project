@@ -17,7 +17,7 @@ class GameManager;
 
 class Entity
 {
-private:
+protected:
     // The current velocity of the entity
     Vector2f velocity;
 

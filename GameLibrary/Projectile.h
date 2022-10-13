@@ -14,7 +14,7 @@ class GameManager;
 
 class Projectile
 {
-private:
+protected:
     Vector2f velocity;
 
 public:

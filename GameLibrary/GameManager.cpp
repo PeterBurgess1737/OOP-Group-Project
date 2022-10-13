@@ -163,6 +163,9 @@ void GameManager::updateProjectiles()
 
         // Check for collisions
         projectile->checkForCollisions(this);
+
+        // Reduce lifespan
+        projectile->reduceLifespan();
     }
 }
 
