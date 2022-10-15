@@ -6,30 +6,63 @@ using std::endl;
 using std::sqrt;
 
 #include <SFML/Graphics.hpp>
-using sf::RenderWindow;
 using sf::CircleShape;
-using sf::RectangleShape;
 using sf::Color;
+using sf::RectangleShape;
+using sf::RenderWindow;
 
 #include <SFML/System.hpp>
 using sf::Vector2f;
 
 #include "GameLibrary/GameLibrary.h"
 
+// A very basic player for testing purposes
+class TestPlayer : public Entity
+{
+public:
+    TestPlayer();
+    void update(GameManager *manager) override;
+    void draw(RenderWindow *window) override;
+};
+
+// Constructor with some default values
+TestPlayer::TestPlayer()
+{
+    body.setFillColor(Color::Cyan);
+    body.setSize(Vector2f(25.f, 25.f));
+    body.setPosition(640.f, 360.f);
+}
+
+// No need to implement, but defined to prevent from being absrtact
+void TestPlayer::update(GameManager *manager) {}
+
+// Draw the body to the screen
+void TestPlayer::draw(RenderWindow *window)
+{
+    window->draw(body);
+}
+
+// A test enemy
 class TestEnemy : public Entity
 {
 public:
-    TestEnemy(int health, float max_speed, float move_speed);
+    TestEnemy();
     void update(GameManager *manager) override;
+    void draw(RenderWindow *window) override;
 };
 
-TestEnemy::TestEnemy(int health, float max_speed, float move_speed)
+// Construct with some default values
+TestEnemy::TestEnemy()
 {
-    this->health = health;
-    this->max_speed = max_speed;
-    this->move_speed = move_speed;
+    body.setFillColor(Color::Magenta);
+    body.setSize(Vector2f(25.f, 25.f));
+    body.setPosition(500.f, 500.f);
+    health = 1;
+    max_speed = 1.f;
+    move_speed = 0.1f;
 }
 
+// Move in the direction of the player
 void TestEnemy::update(GameManager *manager)
 {
     // Chase logic
@@ -38,6 +71,12 @@ void TestEnemy::update(GameManager *manager)
     vec /= vec_mag;
     vec *= move_speed;
     changeVelocity(vec);
+}
+
+// Draw the body to the screen
+void TestEnemy::draw(RenderWindow *window)
+{
+    window->draw(body);
 }
 
 int main()
@@ -55,16 +94,10 @@ int main()
     // Gamelibrary stuff
 
     // Create an entity for the player
-    Entity player;
-    player.body.setFillColor(Color::Cyan);
-    player.body.setSize(Vector2f(25.f, 25.f));
-    player.body.setPosition(640.f, 360.f);
+    TestPlayer player;
 
     // Create some enemies to play with the player
-    TestEnemy enemy = TestEnemy(1, 1.f, 0.1f);
-    enemy.body.setFillColor(Color::Magenta);
-    enemy.body.setSize(Vector2f(25.f, 25.f));
-    enemy.body.setPosition(500.f, 500.f);
+    TestEnemy enemy = TestEnemy();
     enemy.changeVelocity(2.f, 0.f);
 
     // Create the manager and pass the necessary stuff to it
@@ -83,16 +116,16 @@ int main()
         {
             switch (event.type)
             {
-                case sf::Event::Closed: // Window closed
-                    window.close();
-                    break;
+            case sf::Event::Closed: // Window closed
+                window.close();
+                break;
 
-                case sf::Event::KeyPressed: // Escape key pressed
-                    if (event.key.code == sf::Keyboard::Escape)
-                        window.close();
-                    break;
-                default:
-                    break;
+            case sf::Event::KeyPressed: // Escape key pressed
+                if (event.key.code == sf::Keyboard::Escape)
+                    window.close();
+                break;
+            default:
+                break;
             }
         }
 

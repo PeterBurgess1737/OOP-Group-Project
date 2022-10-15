@@ -16,6 +16,32 @@ using sf::Vector2f;
 
 #include "GameLibrary/GameLibrary.h"
 
+// A very basic entity for testing purposes
+class TestEntity : public Entity
+{
+public:
+    TestEntity();
+    void update(GameManager *manager) override;
+    void draw(RenderWindow *window) override;
+};
+
+// Constructor with some default values
+TestEntity::TestEntity()
+{
+    health = 1;
+    max_speed = 2.5f;
+    move_speed = 0.1f;
+}
+
+// No need to implement, but defined to prevent from being absrtact
+void TestEntity::update(GameManager *manager) {}
+
+// Draw the body to the screen
+void TestEntity::draw(RenderWindow *window)
+{
+    window->draw(body);
+}
+
 int main()
 {
     cout << "\n========== Program Start ==========\n"
@@ -27,12 +53,12 @@ int main()
 
     // Reducing the framerate to 60fps
     window.setFramerateLimit(60);
-    
+
     // Using the game manager
     GameManager manager(&window);
 
     // Entities to play with
-    Entity *unmoving = new Entity;
+    TestEntity *unmoving = new TestEntity;
     unmoving->body.setPosition(300.f, 300.f);
     unmoving->body.setSize(Vector2f(100.f, 100.f));
     manager.addEnemy(unmoving);
@@ -41,11 +67,11 @@ int main()
     {
         for (int y = 0; y < 2; y++)
         {
-            Entity *temp = new Entity;
+            TestEntity *temp = new TestEntity;
             temp->body.setSize(Vector2f(20.f, 20.f));
 
             temp->body.setPosition(220.f + x * 60.f,
-                                  80.f + 520.f * y);
+                                   80.f + 520.f * y);
 
             if (y)
                 temp->body.setFillColor(Color::Red);
@@ -62,17 +88,17 @@ int main()
     {
         for (int x = 0; x < 2; x++)
         {
-            Entity *temp = new Entity;
+            TestEntity *temp = new TestEntity;
             temp->body.setSize(Vector2f(20.f, 20.f));
 
             temp->body.setPosition(80.f + 520.f * x,
-                                  220.f + y * 60.f);
+                                   220.f + y * 60.f);
 
             if (x)
                 temp->body.setFillColor(Color::Yellow);
             else
                 temp->body.setFillColor(Color::Cyan);
-            
+
             temp->changeVelocity(1.f - 2.f * x, 0.f);
 
             manager.addEnemy(temp);
@@ -105,7 +131,7 @@ int main()
         }
 
         // Updates here
-        
+
         // Moving
         manager.updateEnemies();
 

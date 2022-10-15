@@ -112,7 +112,7 @@ void GameManager::drawEnemies() const
 {
     for (Entity *enemy : enemies)
     {
-        window->draw(enemy->body);
+        enemy->draw(window);
     }
 }
 

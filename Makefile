@@ -135,6 +135,7 @@ hitbox2: hitbox2-compile hitbox2-link
 hitbox2-compile:
 	g++ -Isrc/include -c GameLibrary/Hitbox.cpp -o "object files/Hitbox.o"
 	g++ -Isrc/include -c GameLibrary/Entity.cpp -o "object files/Entity.o"
+	g++ -Isrc/include -c GameLibrary/Projectile.cpp -o "object files/Projectile.o"
 	g++ -Isrc/include -c GameLibrary/GameManager.cpp -o "object files/GameManager.o"
 	g++ -Isrc/include -c hitbox2-test.cpp -o "object files/hitbox2-test.o"
 
@@ -142,6 +143,7 @@ hitbox2-link:
 	g++ \
 	"object files/Hitbox.o" \
 	"object files/Entity.o" \
+	"object files/Projectile.o" \
 	"object files/GameManager.o" \
 	"object files/hitbox2-test.o" \
 	-o "executables/hitbox2-test.exe" \

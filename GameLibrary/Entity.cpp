@@ -13,18 +13,6 @@ using std::vector;
 #include "GameManager.h"
 
 /*
- * Entities default constructor
- * Shouldn't be used in the actual game as this is just for testing purposes
- */
-Entity::Entity()
-{
-    // Give everything some value
-    health = 1;
-    max_speed = 2.5f;
-    move_speed = 0.1f;
-}
-
-/*
  * Reduces the health of the entity by damage amount
  * Returns true if the entity was 'killed' by the damage
  */
@@ -147,13 +135,6 @@ Vector2f Entity::getCenter()
     center.x += body.getSize().x / 2;
     center.y += body.getSize().y / 2;
     return center;
-}
-
-/*
- * Update function to be redefined if more interesting behaviour is necessary
- */
-void Entity::update(GameManager *manager)
-{
 }
 
 /*

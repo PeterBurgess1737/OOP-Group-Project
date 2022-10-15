@@ -5,6 +5,9 @@ using std::endl;
 #include <cmath>
 using std::sqrt;
 
+#include <vector>
+using std::vector;
+
 #include <SFML/Graphics.hpp>
 using sf::CircleShape;
 using sf::Color;
@@ -15,6 +18,32 @@ using sf::RenderWindow;
 using sf::Vector2f;
 
 #include "GameLibrary/GameLibrary.h"
+
+// A very basic entity for testing purposes
+class TestEntity : public Entity
+{
+public:
+    TestEntity();
+    void update(GameManager *manager) override;
+    void draw(RenderWindow *window) override;
+};
+
+// Constructor with some default values
+TestEntity::TestEntity()
+{
+    health = 1;
+    max_speed = 2.5f;
+    move_speed = 0.1f;
+}
+
+// No need to implement, but defined to prevent from being absrtact
+void TestEntity::update(GameManager *manager) {}
+
+// Draw the body to the screen
+void TestEntity::draw(RenderWindow *window)
+{
+    window->draw(body);
+}
 
 int main()
 {
@@ -29,17 +58,17 @@ int main()
     window.setFramerateLimit(60);
 
     // Creating entities to test
-    Entity unmoving;
+    TestEntity unmoving;
     unmoving.body.setPosition(300.f, 300.f);
     unmoving.body.setSize(Vector2f(100.f, 100.f));
 
-    vector<Entity> moving_entities;
+    vector<TestEntity> moving_entities;
 
     for (int x = 0; x < 5; x++)
     {
         for (int y = 0; y < 2; y++)
         {
-            Entity temp;
+            TestEntity temp;
             temp.body.setSize(Vector2f(20.f, 20.f));
 
             temp.body.setPosition(220.f + x * 60.f,
@@ -60,7 +89,7 @@ int main()
     {
         for (int x = 0; x < 2; x++)
         {
-            Entity temp;
+            TestEntity temp;
             temp.body.setSize(Vector2f(20.f, 20.f));
 
             temp.body.setPosition(80.f + 520.f * x,
@@ -70,7 +99,7 @@ int main()
                 temp.body.setFillColor(Color::Yellow);
             else
                 temp.body.setFillColor(Color::Cyan);
-            
+
             temp.changeVelocity(1.f - 2.f * x, 0.f);
 
             moving_entities.push_back(temp);
@@ -96,7 +125,7 @@ int main()
                 if (event.key.code == sf::Keyboard::Escape)
                     window.close();
                 break;
-                
+
             default:
                 break;
             }
@@ -107,9 +136,9 @@ int main()
         // Collecting hitboxes
         vector<RectangleHitbox *> hitboxes;
         hitboxes.push_back(&unmoving.body);
-        
+
         // Moving
-        for (Entity &moving : moving_entities)
+        for (TestEntity &moving : moving_entities)
         {
             moving.move(hitboxes);
         }
@@ -118,7 +147,7 @@ int main()
         window.clear();
 
         window.draw(unmoving.body);
-        for (Entity &moving : moving_entities)
+        for (TestEntity &moving : moving_entities)
         {
             window.draw(moving.body);
         }

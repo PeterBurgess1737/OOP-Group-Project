@@ -6,6 +6,8 @@ using std::endl;
 #include <cmath>
 using std::sqrt;
 
+#include <math.h>
+
 #include <cstdlib>
 using std::rand;
 
@@ -28,7 +30,7 @@ using sf::Vector2i;
 class PlayerProjectile : public Projectile
 {
 public:
-    PlayerProjectile(Vector2f position, Vector2f velocity);
+    PlayerProjectile(Vector2f position, Vector2f velocity, int lifespan = 250);
 
     void update(GameManager *manager) override;
 
@@ -39,7 +41,7 @@ public:
     float glow_scale = 1.5f;
 };
 
-PlayerProjectile::PlayerProjectile(Vector2f position, Vector2f velocity) : Projectile(position, 3.f, velocity, 1, true, 120) {}
+PlayerProjectile::PlayerProjectile(Vector2f position, Vector2f velocity, int lifespan) : Projectile(position, 3.f, velocity, 1, true, lifespan) {}
 
 void PlayerProjectile::update(GameManager *manager)
 {
@@ -53,7 +55,7 @@ void PlayerProjectile::update(GameManager *manager)
         glow_scale = glow_scale_default + ((50 - temp) / 25);
 }
 
-void PlayerProjectile::draw(sf::RenderWindow *window)
+void PlayerProjectile::draw(RenderWindow *window)
 {
     window->draw(body);
 
@@ -79,6 +81,8 @@ public:
 
     void update(GameManager *manager) override;
 
+    void draw(RenderWindow *window) override;
+
     void fire(GameManager *manager, Vector2i mouse_pos);
 
     int bullet_delay = 3;
@@ -97,6 +101,11 @@ void Player::update(GameManager *manager)
     {
         current_bullet_delay--;
     }
+}
+
+void Player::draw(RenderWindow *window)
+{
+    window->draw(body);
 }
 
 void Player::fire(GameManager *manager, Vector2i mouse_pos)
@@ -127,6 +136,8 @@ public:
     Vector2f getUnitVectorToPlayer(GameManager *manager);
 
     void update(GameManager *manager) override;
+
+    void draw(RenderWindow *window) override;
 };
 
 BasicEnemy::BasicEnemy()
@@ -177,6 +188,11 @@ void BasicEnemy::update(GameManager *manager)
     //    body.setScale(-1.f, 1.f);
 }
 
+void BasicEnemy::draw(RenderWindow *window)
+{
+    window->draw(body);
+}
+
 class FastEnemy : public BasicEnemy
 {
 public:
@@ -185,6 +201,8 @@ public:
     FastEnemy();
 
     void update(GameManager *manager) override;
+
+    void draw(RenderWindow *window) override;
 };
 
 FastEnemy::FastEnemy()
@@ -227,12 +245,19 @@ void FastEnemy::update(GameManager *manager)
     //    body.setScale(-1.f, 1.f);
 }
 
+void FastEnemy::draw(RenderWindow *window)
+{
+    window->draw(body);
+}
+
 class BigEnemy : public BasicEnemy
 {
 public:
     BigEnemy();
 
     void update(GameManager *manager) override;
+
+    void draw(RenderWindow *window) override;
 };
 
 BigEnemy::BigEnemy()
@@ -274,6 +299,11 @@ void BigEnemy::update(GameManager *manager)
     // Swap if to the left
     // if (vec.x > 0)
     //    body.setScale(-1.f, 1.f);
+}
+
+void BigEnemy::draw(RenderWindow *window)
+{
+    window->draw(body);
 }
 
 int main()
@@ -347,7 +377,7 @@ int main()
             case sf::Event::KeyPressed: // Escape key pressed
                 if (event.key.code == sf::Keyboard::Escape)
                     lose_frame = frame_counter;
-                    window.close();
+                window.close();
                 break;
 
             default:

@@ -6,6 +6,7 @@ using sf::Vector2f;
 
 #include <SFML/Graphics.hpp>
 using sf::RectangleShape;
+using sf::RenderWindow;
 
 #include <vector>
 using std::vector;
@@ -35,9 +36,6 @@ public:
     // Needs to be properly initialised
     RectangleHitbox body;
 
-    // Simple default constructor, just for testing purposes and shouldn't be used
-    Entity();
-
     // Returns true if the damage taken results in death
     bool takeDamage(int damage);
 
@@ -57,11 +55,14 @@ public:
     // Gets the center of the hitbox/body
     Vector2f getCenter();
 
-    // Update function to be specified for more interesting behaviour
-    virtual void update(GameManager *manager);
-
     // Receive the entities health
     int getHealth() const;
+
+    // Update function to be specified for more interesting behaviour
+    virtual void update(GameManager *manager) = 0;
+
+    // Draw function to dictate how the entity is drawn
+    virtual void draw(RenderWindow *window) = 0;
 };
 
 #endif // OOP_GROUP_PROJECT_ENTITY_H
