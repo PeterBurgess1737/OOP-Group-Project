@@ -64,7 +64,8 @@ mac:
 	GameLibrary/GameManager.cpp \
 	main.cpp \
 	-o "executables/main-mac" \
-	-lsfml-graphics -lsfml-window -lsfml-system
+	-lsfml-graphics -lsfml-window -lsfml-system \
+	-mmacosx-version-min
 
 mac-run:
 	./"executables/main-mac"
