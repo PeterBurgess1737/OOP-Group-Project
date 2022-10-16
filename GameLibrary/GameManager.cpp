@@ -1,20 +1,16 @@
 #include "GameManager.h"
 
-#include <SFML/Graphics.hpp>
-using sf::RenderWindow;
-
-#include "SFMl/Window.hpp"
-using sf::Event;
-
 #include <iostream>
-using std::cout;
-using std::endl;
-
 #include <vector>
-using std::vector;
+
+using namespace std;
+
+#include <SFML/Graphics.hpp>
+#include "SFMl/Window.hpp"
+
+using namespace sf;
 
 #include "Entity.h"
-
 #include "Projectile.h"
 
 /*

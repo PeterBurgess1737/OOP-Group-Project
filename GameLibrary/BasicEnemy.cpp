@@ -1,17 +1,16 @@
 #include "BasicEnemy.h"
-#include "GameManager.h"
 
 #include <cmath>
-using std::sqrt;
-
 #include <cstdlib>
-using std::rand;
+
+using namespace std;
 
 #include <SFML/Graphics.hpp>
-using sf::RenderWindow;
-
 #include <SFML/System.hpp>
-using sf::Vector2f;
+
+using namespace sf;
+
+#include "GameManager.h"
 
 BasicEnemy::BasicEnemy()
 {

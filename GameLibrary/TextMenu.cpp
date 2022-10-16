@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 
-using std::string;
+using namespace std;
 
 /*
     Greeting to user

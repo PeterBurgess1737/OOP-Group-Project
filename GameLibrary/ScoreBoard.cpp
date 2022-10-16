@@ -1,12 +1,9 @@
 #include "ScoreBoard.h"
 
 #include <fstream>
-using std::endl;
-using std::ifstream; // Read from files
-using std::ofstream; // Write to files
-
 #include <string>
-using std::getline;
+
+using namespace std;
 
 /*
  * Add a score

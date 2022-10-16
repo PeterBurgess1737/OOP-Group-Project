@@ -2,13 +2,13 @@
 #define OOP_GROUP_PROJECT_BIGENEMY_H
 
 #include "BasicEnemy.h"
-#include "GameManager.h"
 
 #include <SFML/System.hpp>
-using sf::Vector2f;
-
 #include <SFML/Graphics.hpp>
-using sf::RenderWindow;
+
+using namespace sf;
+
+#include "GameManager.h"
 
 class BigEnemy : public BasicEnemy
 {

@@ -1,10 +1,12 @@
 #include "Hitbox.h"
 
-#include <SFML/System.hpp>
-using sf::Vector2f;
-
 #include <cmath>
-using std::sqrt;
+
+using namespace std;
+
+#include <SFML/System.hpp>
+
+using namespace sf;
 
 /*
  * Rectangle Hitbox

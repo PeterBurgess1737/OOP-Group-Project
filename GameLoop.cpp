@@ -1,28 +1,17 @@
 #include "GameLoop.h"
 
-#include "GameLibrary/GameLibrary.h"
-
 #include <iostream>
-using std::cout;
-using std::endl;
-
 #include <cmath>
-using std::sqrt;
-
 #include <cstdlib>
-using std::rand;
+
+using namespace std;
 
 #include <SFML/Graphics.hpp>
-using sf::CircleShape;
-using sf::Color;
-using sf::Image;
-using sf::RectangleShape;
-using sf::RenderWindow;
-using sf::Texture;
-
 #include <SFML/System.hpp>
-using sf::Vector2f;
-using sf::Vector2i;
+
+using namespace sf;
+
+#include "GameLibrary/GameLibrary.h"
 
 /*
  *

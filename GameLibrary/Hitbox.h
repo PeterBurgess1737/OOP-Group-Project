@@ -2,11 +2,9 @@
 #define OOP_GROUP_PROJECT_HITBOX_H
 
 #include <SFML/System.hpp>
-using sf::Vector2f;
-
 #include <SFML/Graphics.hpp>
-using sf::CircleShape;
-using sf::RectangleShape;
+
+using namespace sf;
 
 class RectangleHitbox : public RectangleShape
 {

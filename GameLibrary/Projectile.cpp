@@ -1,5 +1,10 @@
 #include "Projectile.h"
 
+#include <SFML/System.hpp>
+#include <SFML/Graphics.hpp>
+
+using namespace sf;
+
 Projectile::Projectile(Vector2f position, float radius, Vector2f velocity, int damage, bool player_fired, int lifespan)
 {
     body.setPosition(position);

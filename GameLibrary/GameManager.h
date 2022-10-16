@@ -2,16 +2,16 @@
 #define OOP_GROUP_PROJECT_GAMEMANAGER_H
 
 #include <vector>
-using std::vector;
+
+using namespace std;
 
 #include <SFML/Graphics.hpp>
-using sf::RenderWindow;
+
+using namespace sf;
 
 #include "Hitbox.h"
-
 #include "Entity.h"
 class Entity;
-
 #include "Projectile.h"
 class Projectile;
 

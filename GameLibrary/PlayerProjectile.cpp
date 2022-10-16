@@ -1,12 +1,11 @@
 #include "PlayerProjectile.h"
-#include "GameManager.h"
 
 #include <SFML/Graphics.hpp>
-using sf::CircleShape;
-using sf::Color;
-
 #include <SFML/System.hpp>
-using sf::Vector2f;
+
+using namespace sf;
+
+#include "GameManager.h"
 
 PlayerProjectile::PlayerProjectile(Vector2f position, Vector2f velocity, int lifespan) : Projectile(position, 3.f, velocity, 1, true, lifespan) {}
 

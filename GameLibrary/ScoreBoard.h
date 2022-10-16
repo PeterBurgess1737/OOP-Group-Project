@@ -2,10 +2,9 @@
 #define OOP_GROUP_PROJECT_SCOREBOARD_H
 
 #include <vector>
-using std::vector;
-
 #include <string>
-using std::string;
+
+using namespace std;
 
 class ScoreBoard
 {

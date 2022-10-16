@@ -1,13 +1,13 @@
 #include "Entity.h"
 
-#include <SFML/System.hpp>
-using sf::Vector2f;
-
 #include <cmath>
-using std::sqrt;
-
 #include <vector>
-using std::vector;
+
+using namespace std;
+
+#include <SFML/System.hpp>
+
+using namespace sf;
 
 #include "Hitbox.h"
 #include "GameManager.h"

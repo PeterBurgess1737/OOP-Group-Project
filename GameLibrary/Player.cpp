@@ -1,16 +1,16 @@
 #include "Player.h"
-#include "PlayerProjectile.h"
-#include "GameManager.h"
 
 #include <cmath>
-using std::sqrt;
+
+using namespace std;
 
 #include <SFML/Graphics.hpp>
-using sf::Color;
-using sf::RenderWindow;
-
 #include <SFML/System.hpp>
-using sf::Vector2i;
+
+using namespace sf;
+
+#include "PlayerProjectile.h"
+#include "GameManager.h"
 
 Player::Player()
 {

@@ -1,14 +1,13 @@
 #ifndef OOP_GROUP_PROJECT_PLAYER_H
 #define OOP_GROUP_PROJECT_PLAYER_H
 
+#include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
+
+using namespace sf;
+
 #include "Entity.h"
 #include "GameManager.h"
-
-#include <SFML/Graphics.hpp>
-using sf::RenderWindow;
-
-#include <SFML/System.hpp>
-using sf::Vector2i;
 
 class Player : public Entity
 {

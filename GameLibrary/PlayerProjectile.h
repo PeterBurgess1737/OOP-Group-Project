@@ -1,17 +1,17 @@
 #ifndef OOP_GROUP_PROJECT_PLAYERPROJECTILE_H
 #define OOP_GROUP_PROJECT_PLAYERPROJECTILE_H
 
-#include "Projectile.h"
-#include "GameManager.h"
+#include <cstdlib>
+
+using namespace std;
 
 #include <SFML/Graphics.hpp>
-using sf::RenderWindow;
-
 #include <SFML/System.hpp>
-using sf::Vector2f;
 
-#include <cstdlib>
-using std::rand;
+using namespace sf;
+
+#include "Projectile.h"
+#include "GameManager.h"
 
 class PlayerProjectile : public Projectile
 {

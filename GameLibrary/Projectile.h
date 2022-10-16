@@ -1,14 +1,15 @@
 #ifndef OOP_GROUP_PROJECT_PROJECTILE_H
 #define OOP_GROUP_PROJECT_PROJECTILE_H
 
-#include <SFML/System.hpp>
-using sf::Vector2f;
-
 #include <vector>
-using std::vector;
+
+using namespace std;
+
+#include <SFML/System.hpp>
+
+using namespace sf;
 
 #include "Hitbox.h"
-
 #include "GameManager.h"
 class GameManager;
 

@@ -1,19 +1,17 @@
 #ifndef OOP_GROUP_PROJECT_ENTITY_H
 #define OOP_GROUP_PROJECT_ENTITY_H
 
-#include <SFML/System.hpp>
-using sf::Vector2f;
-
-#include <SFML/Graphics.hpp>
-using sf::RectangleShape;
-using sf::RenderWindow;
-
 #include <vector>
-using std::vector;
+
+using namespace std;
+
+#include <SFML/System.hpp>
+#include <SFML/Graphics.hpp>
+
+using namespace sf;
 
 #include "GameManager.h"
 class GameManager;
-
 #include "Hitbox.h"
 
 class Entity

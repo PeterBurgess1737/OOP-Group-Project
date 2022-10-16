@@ -1,14 +1,13 @@
 #ifndef OOP_GROUP_PROJECT_BASICENEMY_H
 #define OOP_GROUP_PROJECT_BASICENEMY_H
 
+#include <SFML/System.hpp>
+#include <SFML/Graphics.hpp>
+
+using namespace sf;
+
 #include "Entity.h"
 #include "GameManager.h"
-
-#include <SFML/System.hpp>
-using sf::Vector2f;
-
-#include <SFML/Graphics.hpp>
-using sf::RenderWindow;
 
 class BasicEnemy : public Entity
 {
