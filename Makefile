@@ -134,6 +134,7 @@ hitbox1-mac:
 	g++ \
 	GameLibrary/Hitbox.cpp \
 	GameLibrary/Entity.cpp \
+	GameLibrary/Projectile.cpp \
 	GameLibrary/GameManager.cpp \
 	hitbox1-test.cpp \
 	-o "executables/hitbox1-test-mac" \
