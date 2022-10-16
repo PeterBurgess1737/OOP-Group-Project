@@ -171,6 +171,7 @@ hitbox2-mac:
 	g++ \
 	GameLibrary/Hitbox.cpp \
 	GameLibrary/Entity.cpp \
+	GameLibrary/Projectile.cpp \
 	GameLibrary/GameManager.cpp \
 	hitbox2-test.cpp \
 	-o "executables/hitbox2-test-mac" \
