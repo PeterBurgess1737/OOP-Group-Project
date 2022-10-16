@@ -62,6 +62,9 @@ public:
     void drawProjectiles() const;
     // Deletes all collided projectiles
     void deleteNecessaryProjectiles();
+
+    // Game loop, updates everything and draws everything
+    
 };
 
 #endif // OOP_GROUP_PROJECT_GAMEMANAGER_H

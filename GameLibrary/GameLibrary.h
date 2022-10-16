@@ -1,6 +1,10 @@
 #ifndef OOP_GROUP_PROJECT_GAMELIBRARY_H
 #define OOP_GROUP_PROJECT_GAMELIBRARY_H
 
+#include "ScoreBoard.h"
+
+#include "TestMenu.h"
+
 #include "Hitbox.h"
 
 #include "Entity.h"

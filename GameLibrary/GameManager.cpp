@@ -170,7 +170,7 @@ void GameManager::updateProjectiles()
 }
 
 /*
- *
+ * Draws all handled projectiles
  */
 void GameManager::drawProjectiles() const
 {
@@ -181,7 +181,7 @@ void GameManager::drawProjectiles() const
 }
 
 /*
- *
+ * Deletes all projectiles marked for deletion
  */
 void GameManager::deleteNecessaryProjectiles()
 {

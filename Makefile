@@ -10,12 +10,21 @@
 # 	Use 'make mac' to compile the project for mac
 # 	Use 'make mac-run' to run the compiled project for mac
 #
-# Here are the current test commands (see definitions for more details)
+# Here are the current basic test commands (see definitions for more details)
 # 	'make sfml' to check if SFML works
 # 	'make Tmovement' to run a basic test for movement
 # 	'make Tcollision' to run a basic test for collision
 # 	'make Tframerate' to run a basic test for setting the framerate of a window
 # 	'make Tsolver1' to run a basic test for solving collisions between rectangles
+#
+# Here are the current main functionality tests
+#	'make entity1' to run the test for entities (uses the game manager to hold and update them)
+#	'make hitbox1' to run the test for collision between rectangle hitboxes
+#	'make hitbox2' to run the test for collision between entities handled from within the game manager
+#	'make projectile1' to run the test for projectiles handled from within the game manager
+#	'make scoreboard1' to run the test for storing, saving and loading scores
+#	'make mainmenu1' to run the test for the main menu
+#
 #====================================================================================================
 
 # The main make command for the project, use 'make' to compile and 'make run' to run the executable
@@ -23,6 +32,7 @@ all: main-compile main-link
 
 main-compile:
 	g++ -Isrc/include -c GameLibrary/ScoreBoard.cpp -o "object files/ScoreBoard.o"
+	g++ -Isrc/include -c GameLibrary/TestMenu.cpp -o "object files/TestMenu.o"
 	g++ -Isrc/include -c GameLibrary/Hitbox.cpp -o "object files/Hitbox.o"
 	g++ -Isrc/include -c GameLibrary/Entity.cpp -o "object files/Entity.o"
 	g++ -Isrc/include -c GameLibrary/Projectile.cpp -o "object files/Projectile.o"
@@ -32,6 +42,7 @@ main-compile:
 main-link:
 	g++ \
 	"object files/ScoreBoard.o" \
+	"object files/TestMenu.o" \
 	"object files/Hitbox.o" \
 	"object files/Entity.o" \
 	"object files/Projectile.o" \
@@ -45,6 +56,8 @@ run:
 
 mac:
 	g++ \
+	GameLibrary/ScoreBoard.cpp \
+	GameLibrary/TestMenu.cpp \
 	GameLibrary/Hitbox.cpp \
 	GameLibrary/Entity.cpp \
 	GameLibrary/Projectile.cpp \
@@ -188,6 +201,19 @@ projectile1-link:
 projectile1-run:
 	./"executables/projectile1-test.exe"
 
+projectile1-mac:
+	g++ \
+	GameLibrary/Hitbox.cpp \
+	GameLibrary/Entity.cpp \
+	GameLibrary/Projectile.cpp \
+	GameLibrary/GameManager.cpp \
+	projectile1-test.cpp \
+	-o "executables/projectile1-test-mac" \
+	-lsfml-graphics -lsfml-window -lsfml-system
+
+projectile1-mac-run:
+	./"executables/projectile1-test-mac"
+
 
 # A test for the scoreboard
 scoreboard1:
@@ -195,6 +221,26 @@ scoreboard1:
 
 scoreboard1-run:
 	./executables/scoreboard1-text.exe
+
+scoreboard1-mac:
+	g++ GameLibrary/ScoreBoard.cpp scoreboard1-test.cpp -o "executables/scoreboard1-test-mac"
+
+scoreboard1-mac-run:
+	./"executables/scoreboard1-test-mac"
+
+
+# A test for the scoreboard
+mainmenu1:
+	g++ GameLibrary/TestMenu.cpp mainmenu1-test.cpp -o executables/mainmenu1-text.exe
+
+mainmenu1-run:
+	./executables/mainmenu1-text.exe
+
+mainmenu1-mac:
+	g++ GameLibrary/TestMenu.cpp mainmenu1-test.cpp -o "executables/mainmenu1-test-mac"
+
+mainmenu1-mac-run:
+	./"executables/mainmenu1-test-mac"
 
 
 # Simple main file for testing if sfml works
@@ -295,21 +341,3 @@ Tsolver1-mac:
 Tsolver1-run-mac:
 	./"executables/Tsolver1-test-mac"
 
-
-# A test for solving collisions between rectangles
-Tsolver2: compile-Tsolver2 link-Tsolver2
-
-compile-Tsolver2:
-	g++ -Isrc/include -c "tests/Tsolver2-test.cpp" -o "object files/Tsolver2-test.o"
-	
-link-Tsolver2:
-	g++ "object files/Tsolver2-test.o" -o "executables/Tsolver2-test.exe" -Lsrc/lib -lsfml-graphics -lsfml-window -lsfml-system
-
-Tsolver2-run:
-	./"executables/Tsolver2-test.exe"
-
-Tsolver2-mac:
-	g++ "tests/Tsolver2-test.cpp" -o "executables/Tsolver2-test-mac" -lsfml-graphics -lsfml-window -lsfml-system
-
-Tsolver2-run-mac:
-	./"executables/Tsolver2-test-mac"

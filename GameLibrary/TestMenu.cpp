@@ -13,9 +13,9 @@ void TestMenu::draw_main_menu(int high_score) {
     cout << "-------------- Hello! -----------------" << endl;
     cout << "Your high score is: " << high_score << endl;
 
-    cout << "Press the 'P' key to begin playing" << endl;
-    cout << "Press the 'Q' key to quit" << endl;
-    cout << "Press the 'S' key to see previous game scores" << endl;
+    cout << "Enter the 'P' key to begin playing" << endl;
+    cout << "Enter the 'Q' key to quit" << endl;
+    cout << "Enter the 'S' key to see previous game scores" << endl;
 }
 
 /*
@@ -51,12 +51,12 @@ void TestMenu::draw_end_menu(int current_score, int high_score) {
     cout << "Your high score is: " << high_score << endl;
 
     cout << "Do you want to play another game?" << endl;
-    cout << "Press 'P' to play again" << endl;
-    cout << "Press any other key to quit" << endl;
+    cout << "Enter 'P' to play again" << endl;
+    cout << "Enter any other key to quit" << endl;
 }
 
 /*
-    Record the key pressed by the user
+    Record the key entered by the user
 */
 
 string TestMenu::get_end_menu_choice() {
