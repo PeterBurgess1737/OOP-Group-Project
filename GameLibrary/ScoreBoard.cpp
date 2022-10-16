@@ -62,9 +62,13 @@ bool ScoreBoard::saveToFile(const string& filename)
     // If opening succeeded
 
     // Write every score to the file
-    for (int score : all_scores)
+    for (int i = 0; i < all_scores.size(); i++)
     {
-        save_file << score << endl;
+        save_file << all_scores[i];
+        if (i != all_scores.size() - 1)
+        {
+            save_file << endl;
+        }
     }
 
     // Close the file
@@ -133,7 +137,7 @@ vector<int> ScoreBoard::getLastNScores(int n) const
         n = (int)all_scores.size();
 
     // Get the last n scores
-    vector<int> last_n_scores(all_scores.end() - n - 1, all_scores.end() - 1);
+    vector<int> last_n_scores(all_scores.end() - n, all_scores.end());
 
     return last_n_scores;
 }

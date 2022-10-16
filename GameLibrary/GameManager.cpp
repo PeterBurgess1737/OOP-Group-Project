@@ -3,6 +3,9 @@
 #include <SFML/Graphics.hpp>
 using sf::RenderWindow;
 
+#include "SFMl/Window.hpp"
+using sf::Event;
+
 #include <iostream>
 using std::cout;
 using std::endl;
@@ -197,4 +200,48 @@ void GameManager::deleteNecessaryProjectiles()
             projectiles.erase(projectiles.begin() + index);
         }
     }
+}
+
+/*
+ *
+ */
+void GameManager::updateAll()
+{
+    updatePlayer();
+    updateEnemies();
+    updateProjectiles();
+}
+
+/*
+ *
+ */
+void GameManager::drawAll() const
+{
+    drawPlayer();
+    drawEnemies();
+    drawProjectiles();
+}
+
+/*
+ *
+ */
+void GameManager::deleteAllNecessary()
+{
+    deleteDeadEnemies();
+    deleteNecessaryProjectiles();
+}
+
+GameManager::~GameManager()
+{
+    for (Entity *enemy : enemies)
+    {
+        delete enemy;
+    }
+    enemies.clear();
+
+    for (Projectile *projectile : projectiles)
+    {
+        delete projectile;
+    }
+    projectiles.clear();
 }

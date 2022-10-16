@@ -27,8 +27,10 @@ public:
 class CircleHitbox : public CircleShape
 {
 public:
+    // Gets centre of circle hitbox
     Vector2f getCenter();
 
+    // Checks for collision with a rectangle hitbox
     bool collidesWith(const RectangleHitbox &rectangle) const;
 };
 

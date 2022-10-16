@@ -41,7 +41,7 @@ public:
     // Checks if an enemy touches the player, returns true if this happens
     bool checkLoseCondition();
 
-    // Enemies
+    // Enemies, must be dynamically allocated
     vector<Entity *> enemies;
     // Add an enemy
     void addEnemy(Entity *enemy);
@@ -52,7 +52,7 @@ public:
     // Deletes dead enemies
     void deleteDeadEnemies();
 
-    // Projectiles
+    // Projectiles, must be dynamically allocated
     vector<Projectile *> projectiles;
     // Add a projectile
     void addProjectile(Projectile *projectile);
@@ -63,8 +63,15 @@ public:
     // Deletes all collided projectiles
     void deleteNecessaryProjectiles();
 
-    // Game loop, updates everything and draws everything
-    
+    // Updates everything
+    void updateAll();
+    // Draws everything
+    void drawAll() const;
+    // Deletes all the necessary things that need deleting
+    void deleteAllNecessary();
+
+    // Deletes everything
+    ~GameManager();
 };
 
 #endif // OOP_GROUP_PROJECT_GAMEMANAGER_H

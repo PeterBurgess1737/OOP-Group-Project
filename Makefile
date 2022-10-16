@@ -32,21 +32,33 @@ all: main-compile main-link
 
 main-compile:
 	g++ -Isrc/include -c GameLibrary/ScoreBoard.cpp -o "object files/ScoreBoard.o"
-	g++ -Isrc/include -c GameLibrary/TestMenu.cpp -o "object files/TestMenu.o"
+	g++ -Isrc/include -c GameLibrary/TextMenu.cpp -o "object files/TextMenu.o"
 	g++ -Isrc/include -c GameLibrary/Hitbox.cpp -o "object files/Hitbox.o"
 	g++ -Isrc/include -c GameLibrary/Entity.cpp -o "object files/Entity.o"
+	g++ -Isrc/include -c GameLibrary/BasicEnemy.cpp -o "object files/BasicEnemy.o"
+	g++ -Isrc/include -c GameLibrary/FastEnemy.cpp -o "object files/FastEnemy.o"
+	g++ -Isrc/include -c GameLibrary/BigEnemy.cpp -o "object files/BigEnemy.o"
+	g++ -Isrc/include -c GameLibrary/Player.cpp -o "object files/Player.o"
 	g++ -Isrc/include -c GameLibrary/Projectile.cpp -o "object files/Projectile.o"
+	g++ -Isrc/include -c GameLibrary/PlayerProjectile.cpp -o "object files/PlayerProjectile.o"
 	g++ -Isrc/include -c GameLibrary/GameManager.cpp -o "object files/GameManager.o"
+	g++ -Isrc/include -c GameLoop.cpp -o "object files/GameLoop.o"
 	g++ -Isrc/include -c main.cpp -o "object files/main.o"
 
 main-link:
 	g++ \
 	"object files/ScoreBoard.o" \
-	"object files/TestMenu.o" \
+	"object files/TextMenu.o" \
 	"object files/Hitbox.o" \
 	"object files/Entity.o" \
+	"object files/BasicEnemy.o" \
+	"object files/FastEnemy.o" \
+	"object files/BigEnemy.o" \
+	"object files/Player.o" \
 	"object files/Projectile.o" \
+	"object files/PlayerProjectile.o" \
 	"object files/GameManager.o" \
+	"object files/GameLoop.o" \
 	"object files/main.o" \
 	-o "executables/main.exe" \
 	-Lsrc/lib -lsfml-graphics -lsfml-window -lsfml-system
@@ -57,7 +69,7 @@ run:
 mac:
 	g++ \
 	GameLibrary/ScoreBoard.cpp \
-	GameLibrary/TestMenu.cpp \
+	GameLibrary/TextMenu.cpp \
 	GameLibrary/Hitbox.cpp \
 	GameLibrary/Entity.cpp \
 	GameLibrary/Projectile.cpp \
@@ -234,13 +246,13 @@ scoreboard1-mac-run:
 
 # A test for the scoreboard
 mainmenu1:
-	g++ GameLibrary/TestMenu.cpp mainmenu1-test.cpp -o executables/mainmenu1-text.exe
+	g++ GameLibrary/TextMenu.cpp mainmenu1-test.cpp -o executables/mainmenu1-text.exe
 
 mainmenu1-run:
 	./executables/mainmenu1-text.exe
 
 mainmenu1-mac:
-	g++ GameLibrary/TestMenu.cpp mainmenu1-test.cpp -o "executables/mainmenu1-test-mac"
+	g++ GameLibrary/TextMenu.cpp mainmenu1-test.cpp -o "executables/mainmenu1-test-mac"
 
 mainmenu1-mac-run:
 	./"executables/mainmenu1-test-mac"
