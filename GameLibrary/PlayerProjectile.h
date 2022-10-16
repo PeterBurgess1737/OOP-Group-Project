@@ -33,4 +33,4 @@ public:
     float glow_scale = 1.5f;
 };
 
-#endif //OOP_GROUP_PROJECT_PLAYERPROJECTILE_H
+#endif // OOP_GROUP_PROJECT_PLAYERPROJECTILE_H

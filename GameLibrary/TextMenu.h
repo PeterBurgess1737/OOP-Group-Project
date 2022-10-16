@@ -6,7 +6,8 @@
 
 using namespace std;
 
-class TextMenu{
+class TextMenu
+{
 public:
     // Function to draw main menu and see available options
     void drawMainMenu(int high_score);

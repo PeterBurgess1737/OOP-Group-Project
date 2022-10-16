@@ -26,5 +26,4 @@ public:
     void draw(RenderWindow *window) override;
 };
 
-
-#endif //OOP_GROUP_PROJECT_FASTENEMY_H
+#endif // OOP_GROUP_PROJECT_FASTENEMY_H

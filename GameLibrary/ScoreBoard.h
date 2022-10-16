@@ -7,7 +7,8 @@ using std::vector;
 #include <string>
 using std::string;
 
-class ScoreBoard {
+class ScoreBoard
+{
 private:
     // A list of all the scores
     vector<int> all_scores;
@@ -30,13 +31,13 @@ public:
 
     int getNumberOfScores() const;
 
-    bool saveToFile(const string& filename);
+    bool saveToFile(const string &filename);
 
-    bool readFromFile(const string& filename);
+    bool readFromFile(const string &filename);
 
     void clearScoreBoard();
 
     vector<int> getLastNScores(int n) const;
 };
 
-#endif //OOP_GROUP_PROJECT_SCOREBOARD_H
+#endif // OOP_GROUP_PROJECT_SCOREBOARD_H

@@ -5,14 +5,16 @@
 using namespace std;
 
 int main() {
-    // Create an object of the class
+    // CONSTRUCTOR
     TextMenu menu;
 
-    menu.draw_main_menu(56);
-    cout << menu.get_main_menu_choice() << endl;
+    // Draw main menu
+    menu.drawMainMenu(56);
+    cout << menu.getMainMenuChoice() << endl;
 
-    menu.draw_end_menu(56, 72);
-    cout << menu.get_end_menu_choice() << endl;
+    // Draw end menu
+    menu.drawEndMenu(56, 72);
+    cout << menu.getEndMenuChoice() << endl;
 
     return 0;
 }

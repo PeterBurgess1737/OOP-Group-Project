@@ -31,5 +31,4 @@ public:
     int current_bullet_delay = 0;
 };
 
-
-#endif //OOP_GROUP_PROJECT_PLAYER_H
+#endif // OOP_GROUP_PROJECT_PLAYER_H

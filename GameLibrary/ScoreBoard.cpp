@@ -1,9 +1,9 @@
 #include "ScoreBoard.h"
 
 #include <fstream>
-using std::ofstream; // Write to files
-using std::ifstream; // Read from files
 using std::endl;
+using std::ifstream; // Read from files
+using std::ofstream; // Write to files
 
 #include <string>
 using std::getline;
@@ -44,12 +44,11 @@ int ScoreBoard::getNumberOfScores() const
     return (int)all_scores.size();
 }
 
-
 /*
  * Saves all scores to the given filename.
  * Filename does not include the file type, e.g. ".txt".
  */
-bool ScoreBoard::saveToFile(const string& filename)
+bool ScoreBoard::saveToFile(const string &filename)
 {
     // Open the file
     ofstream save_file;

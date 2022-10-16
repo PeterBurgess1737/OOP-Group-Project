@@ -6,8 +6,8 @@
 using std::sqrt;
 
 #include <SFML/Graphics.hpp>
-using sf::RenderWindow;
 using sf::Color;
+using sf::RenderWindow;
 
 #include <SFML/System.hpp>
 using sf::Vector2i;
@@ -36,14 +36,14 @@ void Player::fire(GameManager *manager, Vector2i mouse_pos)
     if (current_bullet_delay <= 0)
     {
         Vector2f direction_to_mouse = Vector2f(
-                (float)mouse_pos.x - getCenter().x,
-                (float)mouse_pos.y - getCenter().y);
+            (float)mouse_pos.x - getCenter().x,
+            (float)mouse_pos.y - getCenter().y);
         float magnitude = sqrt(direction_to_mouse.x * direction_to_mouse.x + direction_to_mouse.y * direction_to_mouse.y);
         direction_to_mouse /= magnitude;
         direction_to_mouse *= 3.f; // Bullet speed
         auto *temp = new PlayerProjectile(
-                getCenter(),
-                direction_to_mouse);
+            getCenter(),
+            direction_to_mouse);
         temp->body.setFillColor(Color(235, 179, 12));
         manager->addProjectile(temp);
 

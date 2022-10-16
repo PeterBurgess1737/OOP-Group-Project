@@ -29,7 +29,8 @@ using sf::Vector2i;
 
 int main()
 {
-    cout << "\n==================== Program Start ====================\n" << endl;
+    cout << "\n==================== Program Start ====================\n"
+         << endl;
 
     // The text menu
     TextMenu mr_menu;
@@ -78,7 +79,8 @@ int main()
             game_loop.reset();
             game_loop.runGameLoop();
 
-            cout << "Game ended\n" << endl;
+            cout << "Game ended\n"
+                 << endl;
 
             // Save the score
             bored.addScore(game_loop.lose_frame);
@@ -101,7 +103,8 @@ int main()
     cout << "Saving data to file" << endl;
     bored.saveToFile("Savefile");
 
-    cout << "\n===================== Program End =====================\n" << endl;
+    cout << "\n===================== Program End =====================\n"
+         << endl;
 
     return 0;
 }

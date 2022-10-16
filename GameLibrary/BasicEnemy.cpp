@@ -26,18 +26,18 @@ BasicEnemy::BasicEnemy()
     // Random position spawning
     switch (rand() % 4)
     {
-        case 0: // The top
-            this->body.setPosition((float)(rand() % 1480), -400.f);
-            break;
-        case 1: // The bottom
-            this->body.setPosition((float)(rand() % 1480), -920.f);
-            break;
-        case 2: // The left
-            this->body.setPosition(-400.f, (float)(rand() % 920));
-            break;
-        case 3: // The right
-            this->body.setPosition(1480.f, (float)(rand() % 920));
-            break;
+    case 0: // The top
+        this->body.setPosition((float)(rand() % 1480), -400.f);
+        break;
+    case 1: // The bottom
+        this->body.setPosition((float)(rand() % 1480), -920.f);
+        break;
+    case 2: // The left
+        this->body.setPosition(-400.f, (float)(rand() % 920));
+        break;
+    case 3: // The right
+        this->body.setPosition(1480.f, (float)(rand() % 920));
+        break;
     }
 }
 

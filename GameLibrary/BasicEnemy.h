@@ -26,4 +26,4 @@ public:
     void draw(RenderWindow *window) override;
 };
 
-#endif //OOP_GROUP_PROJECT_BASICENEMY_H
+#endif // OOP_GROUP_PROJECT_BASICENEMY_H

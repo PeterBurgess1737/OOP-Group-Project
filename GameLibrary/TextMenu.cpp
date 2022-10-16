@@ -10,10 +10,12 @@ using std::string;
     Display high score to user
     Display game options
 */
-void TextMenu::drawMainMenu(int high_score) {
+void TextMenu::drawMainMenu(int high_score)
+{
     cout << "-------------- Hello! -----------------" << endl;
 
-    if(high_score != -1) {
+    if (high_score != -1)
+    {
         cout << "Your high score is: " << high_score << endl;
     }
 
@@ -26,19 +28,27 @@ void TextMenu::drawMainMenu(int high_score) {
     Implementation of reading in a key entered by user
     Convert keys entered by the user to lowercase
 */
-string TextMenu::getMainMenuChoice() {
-    while (true) {
+string TextMenu::getMainMenuChoice()
+{
+    while (true)
+    {
         string temp;
         getline(cin, temp);
 
-        if (temp == "p" || temp == "P") {
+        if (temp == "p" || temp == "P")
+        {
             return "p";
-        } else if(temp == "q" || temp == "Q"){
+        }
+        else if (temp == "q" || temp == "Q")
+        {
             return "q";
-        } else if(temp == "s" || temp == "S"){
+        }
+        else if (temp == "s" || temp == "S")
+        {
             return "s";
         }
-        else {
+        else
+        {
             cout << "Please enter a valid input, either 'P', 'Q', or 'S'" << endl;
         }
     }
@@ -48,15 +58,18 @@ string TextMenu::getMainMenuChoice() {
     Display end menu key options
     Ask user to enter specific keys to play again or quit
 */
-void TextMenu::drawEndMenu(int current_score, int high_score) {
+void TextMenu::drawEndMenu(int current_score, int high_score)
+{
     cout << "------------ YOU DIED! ------------" << endl;
     cout << "Your score was: " << current_score << endl;
 
-    if(current_score == high_score){
+    if (current_score == high_score)
+    {
         cout << "This is a new high score!" << endl;
     }
 
-    if(high_score != -1 && high_score != current_score) {
+    if (high_score != -1 && high_score != current_score)
+    {
         cout << "Your high score is: " << high_score << endl;
     }
 
@@ -68,13 +81,17 @@ void TextMenu::drawEndMenu(int current_score, int high_score) {
 /*
     Record the key entered by the user
 */
-string TextMenu::getEndMenuChoice() {
+string TextMenu::getEndMenuChoice()
+{
     string temp;
     getline(cin, temp);
 
-    if (temp == "p" || temp == "P") {
+    if (temp == "p" || temp == "P")
+    {
         return "p";
-    } else {
+    }
+    else
+    {
         return "q";
     }
 }
@@ -88,10 +105,11 @@ void TextMenu::drawLastScores(vector<int> last_scores)
     cout << endl;
 
     // Draw the previous game scores
-    if (last_scores.empty()){
+    if (last_scores.empty())
+    {
         cout << "There is no saved data" << endl;
         return;
-    } 
+    }
     cout << "Your last scores were:" << endl;
 
     // Print out the scores in the vector in reverse order (the most recent being at the top of the list)
