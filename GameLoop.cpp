@@ -54,7 +54,8 @@ void GameLoop::runGameLoop()
 {
     // Create the window
     RenderWindow window(sf::VideoMode(1280, 720),
-                        "OOP Group Project");
+                        "OOP Group Project",
+                        sf::Style::Titlebar | sf::Style::Close);
 
     // Reducing the framerate to 60fps
     window.setFramerateLimit(60);
