@@ -75,7 +75,7 @@ void TextMenu::drawEndMenu(int current_score, int high_score)
 
     cout << "\nDo you want to play another game?" << endl;
     cout << "Enter 'P' to play again" << endl;
-    cout << "Enter anything else to quit" << endl;
+    cout << "Enter anything else to return to the main menu" << endl;
 }
 
 /*
@@ -92,7 +92,7 @@ string TextMenu::getEndMenuChoice()
     }
     else
     {
-        return "q";
+        return "r";
     }
 }
 
